@@ -18,18 +18,20 @@
 
 <br>
 
-          <div class="page-title">
-            <div class="title_left">
-              <h3>KODE REKENING</h3>
-             </div>
-            </div>
-
 <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Tabel Data</h2>
+                    <h2>KODE REKENING</h2>
                     <div class="clearfix"></div>
                   </div>
+                    <div class="col-md-4">
+                      <div id="" class="pull-left" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+                        <i class="fa fa-dashboard"></i>
+                        <span>December 30, 2014 - January 28, 2015</span> <b class="caret"></b>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
                   <a href="/koderekening_create" class="btn btn-primary btn-sm" id="btntambahkoderekening">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus"
                         width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
@@ -41,7 +43,7 @@
                     </svg>
                     Tambah
                 </a>
-
+            </div>
                   <div class="x_content">
                       <div class="row">
                           <div class="col-sm-12">
