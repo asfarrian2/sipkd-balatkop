@@ -31,7 +31,7 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::post('/koderekening/store', [KodeRekeningController::class, 'store']);
     Route::get('/koderekening/edit/{kode_rekening}', [KodeRekeningController::class, 'edit']);
     Route::post('/koderekening/update', [KodeRekeningController::class, 'update']);
-    Route::get('/koderekening/{id_kdrekening}/hapus', [KodeRekeningController::class, 'hapus']);
+    Route::get('/koderekening/{kode_rekening}/hapus', [KodeRekeningController::class, 'hapus']);
     //pejabat pelaksana
     Route::get('/pejabatpelaksana/view', [PejabatpelaksanaController::class, 'view']);
     Route::get('/pejabatpelaksana/edit/{id_pejabat}', [PejabatpelaksanaController::class, 'edit']);
@@ -53,6 +53,9 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('/program/view', [programController::class, 'view']);
     Route::get('/program/create', [programController::class, 'create']);
     Route::post('/program/store', [programController::class, 'store']);
+    Route::post('/program/update', [programController::class, 'update']);
+    Route::get('/program/edit/{kode_program}', [programController::class, 'edit']);
+    Route::get('/program/{kode_program}/hapus', [programController::class, 'hapus']);
 });
 
 //Akses Level User

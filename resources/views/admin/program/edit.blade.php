@@ -7,14 +7,7 @@
     $messagewarning = Session::get('warning');
 @endphp
 @if (Session::get('warning'))
-<div class="x_content bs-example-popovers">
-    <div class="alert alert-danger alert-dismissible " role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-        </button>
-        <i class="fa fa-warning"></i> &nbsp;
-      {{ $messagewarning }}
-      </div>
-    </div>
+<a class="btn btn-danger btn-xs close-link text-succsess" href="#"><i class="fa fa-times text-succsess " > {{ $messagewarning }}</i></a>
 <br>
 @endif
 
@@ -29,33 +22,37 @@
             <i class="fa fa-home"></i>
             <span><a href="/dashboard" style="color: #0a803f">Home</a> /
             <i class="fa fa-database"></i> <a href="/program/view" style="color: #0a803f">Program</a> /
-            <i class="fa fa-plus"></i> Tambah Data</span> <b class="caret"></b>
+            <i class="fa fa-pencil"></i> Edit Data</span> <b class="caret"></b>
           </div>
         </div>
-                            <div class="clearfix"></div>
 								<div class="x_content">
 									<br />
-									<form action="/program/store" method="POST" data-parsley-validate class="form-horizontal form-label-left">
+									<form action="/program/update" method="POST" data-parsley-validate class="form-horizontal form-label-left">
                                         @csrf
+                                        <div class="item form-group">
+                                        <div class="col-md-6 col-sm-6 ">
+                                            <input type="hidden" name="kode_program" value="{{ $program->kode_program }}" id="first-name" required="required" class="form-control ">
+                                        </div>
+                                         </div>
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Kode Program
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="kode_program" id="first-name" required="required" class="form-control ">
+												<input type="text" name="kodeprogram_baru" value="{{ $program->kode_program }}" id="first-name" required="required" class="form-control ">
 											</div>
 										</div>
                                         <div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Nama Program
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="text" name="nama_program" id="first-name" required="required" class="form-control ">
+												<input type="text" name="nama_program" value="{{ $program->nama_program }}" id="first-name" required="required" class="form-control ">
 											</div>
 										</div>
                                         <div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Pagu
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input type="number" name="pagu_program" id="first-name"  class="form-control ">
+												<input type="number" name="pagu_program" value="{{ $program->pagu_program }}" id="first-name"  class="form-control ">
 											</div>
 										</div>
 										<div class="ln_solid"></div>
@@ -65,7 +62,6 @@
                                                 <a href="/program/view" class="btn btn-dark">Batal</a>
 											</div>
 										</div>
-
 									</form>
 								</div>
 							</div>

@@ -31,7 +31,7 @@ class KoderekeningController extends Controller
         $keterangan_rekening = $request->keterangan_rekening;
 
         $cekkode = DB::table('kode_rekening')
-        ->where('kode_rekening', '!=', $kode_rekening)
+        ->where('kode_rekening', '=', $kode_rekening)
         ->count();
          if ($cekkode > 0) {
         return Redirect::back()->with(['warning' => 'Kode Rekening Sudah Digunakan']);

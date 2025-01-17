@@ -6,9 +6,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" href="/gentella/images/favicon.ico" type="image/ico" />
+	<link href="https://pap.kalsel.site/assets/foto_profil/sipapan.ico" rel="shortcut icon">
 
-    <title>SIKB</title>
+    <title>SIPKD-Balatkop</title>
 
     <!-- Bootstrap -->
     <link href="/gentella/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -32,9 +32,11 @@
     <link href="/gentella/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="/gentella/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Custom Theme Style -->
     <link href="/gentella/build/css/custom.min.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/wp/img/logoutama.png">
   </head>
 
   <body class="nav-md">
@@ -43,62 +45,62 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-calculator"></i> <span>SIK-BALATKOP</span></a>
+              <a href="/admin/dashboard" class="site_title"><span>SIPKD-BALATKOP</span></a>
             </div>
 
             <div class="clearfix"></div>
 
             <br />
 
-            <!-- sidebar menu -->
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
-                <h3>HOME</h3>
-                <ul class="nav side-menu">
-                  <li><a href="/dashboard"><i class="fa fa-dashboard"></i>Dashboard</a></li>
-                  <br> <h3>MASTER</h3> <br>
-                  <li><a><i class="fa fa-tasks"></i> Data <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="/koderekening_view">Kode Rekening</a></li>
-                      <li><a href="/pejabatpelaksana/view">Pejabat Pelaksana</a></li>
-                      <li><a href="/penyedia/view">Penyedia</a></li>
-                      <li><a href="/user/view">User</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-database"></i> Anggaran <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="/program/view">Progam</a></li>
-                      <li><a href="form_advanced.html">Kegiatan</a></li>
-                      <li><a href="form_validation.html">Sub Kegiatan</a></li>
-                    </ul>
-                  </li>
-                  <br> <h3>Monitoring</h3> <br>
-                  <li><a href="index.html"><i class="fa fa-line-chart"></i> SPJ</a></li>
-                  <br> <h3>TRANSAKSI</h3> <br>
-                  <li><a><i class="fa fa-credit-card"></i> KEUANGAN <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                    <li><a href="tables_dynamic.html">SPP SPM LS</a></li>
-                      <li><a href="tables.html">Uang Pelimpahan (UP)</a></li>
-                      <li><a href="tables_dynamic.html">Belanja</a></li>
-                      <li><a href="tables.html">Pajak</a></li>
-                    </ul>
-                  </li>
-                  <br> <h3>OUTPUT</h3> <br>
-                  <li><a><i class="fa fa-book"></i> LAPORAN<span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                    <li><a href="chartjs.html">Belanja Langsung (LS)</a></li>
-                      <li><a href="chartjs.html">Uang Pelimpahan (UP)</a></li>
-                      <li><a href="chartjs2.html">Buku Kas Umum</a></li>
-                      <li><a href="morisjs.html">SPJ Fungsional</a></li>
-                      <li><a href="echarts.html">Pajak</a></li>
-                      <li><a href="other_charts.html">Fisik</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-
+          <!-- sidebar menu -->
+          <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+            <div class="menu_section">
+              <h3>HOME</h3>
+              <ul class="nav side-menu">
+                <li><a href="/dashboard"><i class="fa fa-home"></i>Home</a></li>
+                <br> <h3>MASTER</h3> <br>
+                <li><a><i class="fa fa-tasks"></i> Data <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a href="/koderekening_view">Kode Rekening</a></li>
+                    <li><a href="/pejabatpelaksana/view">Pejabat Pelaksana</a></li>
+                    <li><a href="/penyedia/view">Penyedia</a></li>
+                    <li><a href="/user/view">User</a></li>
+                  </ul>
+                </li>
+                <li><a><i class="fa fa-database"></i> Anggaran <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a href="/program/view">Progam</a></li>
+                    <li><a href="form_advanced.html">Kegiatan</a></li>
+                    <li><a href="form_validation.html">Sub Kegiatan</a></li>
+                  </ul>
+                </li>
+                <br> <h3>Monitoring</h3> <br>
+                <li><a href="index.html"><i class="fa fa-line-chart"></i> SPJ</a></li>
+                <br> <h3>TRANSAKSI</h3> <br>
+                <li><a><i class="fa fa-credit-card"></i> KEUANGAN <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                  <li><a href="tables_dynamic.html">SPP SPM LS</a></li>
+                    <li><a href="tables.html">Uang Pelimpahan (UP)</a></li>
+                    <li><a href="tables_dynamic.html">Belanja</a></li>
+                    <li><a href="tables.html">Pajak</a></li>
+                  </ul>
+                </li>
+                <br> <h3>OUTPUT</h3> <br>
+                <li><a><i class="fa fa-book"></i> LAPORAN<span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                  <li><a href="chartjs.html">Belanja Langsung (LS)</a></li>
+                    <li><a href="chartjs.html">Uang Pelimpahan (UP)</a></li>
+                    <li><a href="chartjs2.html">Buku Kas Umum</a></li>
+                    <li><a href="morisjs.html">SPJ Fungsional</a></li>
+                    <li><a href="echarts.html">Pajak</a></li>
+                    <li><a href="other_charts.html">Fisik</a></li>
+                  </ul>
+                </li>
+              </ul>
             </div>
-            <!-- /sidebar menu -->
+
+          </div>
+          <!-- /sidebar menu -->
 
             <!-- /menu footer buttons -->
 
@@ -116,11 +118,11 @@
               <ul class=" navbar-right">
                 <li class="nav-item dropdown open" style="padding-left: 15px;">
                   <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                    <img src="/gentella/images/img.jpg" alt="">John Doe
+                    <img src="/gentella/images/user.png" alt="">Admin
                   </a>
                   <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item"  href="javascript:;"> Profile</a>
-                    <a class="dropdown-item"  href="logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+                    <a class="dropdown-item"  href="javascript:;"> Reset Password</a>
+                    <a class="dropdown-item"  href="/proseslogout"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                   </div>
                 </li>
               </ul>
@@ -138,7 +140,7 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            Copyright &copy; 2025, Sistem Informasi Keuangan Balai Pelatihan Koperasi dan Usaha Kecil Prov. Kalsel by Pranata Komputer<a href="https://colorlib.com"></a>
+            Copyright &copy; 2024 BAPENDA Provinsi KALIMANTAN SELATAN<a href="https://colorlib.com"></a>
           </div>
           <div class="clearfix"></div>
         </footer>
@@ -147,6 +149,8 @@
     </div>
 
     <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+    @stack('myscript')
     <script src="/gentella/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="/gentella/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

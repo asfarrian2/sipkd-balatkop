@@ -32,7 +32,7 @@ class ProgramController extends Controller
         $pagu_program = $request->pagu_program;
 
         $cekkode = DB::table('program')
-        ->where('kode_program', '!=', $kode_program)
+        ->where('kode_program', '=', $kode_program)
         ->count();
          if ($cekkode > 0) {
         return Redirect::back()->with(['warning' => 'Kode Program Sudah Digunakan']);
@@ -49,7 +49,50 @@ class ProgramController extends Controller
             return Redirect::back()->with(['warning' => 'Data Gagal Disimpan !']);
             }
 
-
     }
+
+    public function edit($kode_program)
+    {
+        $program = DB::table('program')->where('kode_program', $kode_program)->first();
+        return view('admin.program.edit', compact('program'));
+    }
+
+    public function update(Request $request)
+    {
+        $program_baru = $request->program_baru;
+        $kode_program = $request->program;
+        $nama_program = $request->nama_program;
+        $pagu_program = $request->pagu_program;
+
+        $cekkode = DB::table('program')
+        ->where('kode_program', $program_baru)
+        ->where('kode_program', '!=', $kode_program)
+        ->count();
+         if ($cekkode > 0) {
+        return Redirect::back()->with(['warning' => 'Kode Program Sudah Digunakan']);
+         }
+        try {
+            $data =  [
+                'kode_program' => $program_baru,
+                'nama_program' => $nama_program,
+                'pagu_program' => $pagu_program
+            ];
+            $update = DB::table('program')->where('kode_program', $kode_program)->update($data);
+            return redirect('/program/view')->with(['success' => 'Data Berhasil Diiubah !']);
+            } catch (\Exception $e) {
+            return Redirect::back()->with(['warning' => 'Data Gagal Diubah !']);
+            }
+     }
+
+     public function hapus($kode_program)
+     {
+        $delete = DB::table('program')->where('kode_program', $kode_program)->delete();
+        if ($delete) {
+            return redirect('/program/view')->with(['success' => 'Data Berhasil Dihapus !']);
+        } else {
+            return Redirect::back()->with(['warning' => 'Data Gagal Dihapus !']);
+        }
+     }
+
 
 }

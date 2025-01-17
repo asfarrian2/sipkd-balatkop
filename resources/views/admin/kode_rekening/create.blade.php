@@ -7,7 +7,14 @@
     $messagewarning = Session::get('warning');
 @endphp
 @if (Session::get('warning'))
-<a class="btn btn-danger btn-xs close-link text-succsess" href="#"><i class="fa fa-times text-succsess " > {{ $messagewarning }}</i></a>
+<div class="x_content bs-example-popovers">
+    <div class="alert alert-danger alert-dismissible " role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+        </button>
+        <i class="fa fa-warning"></i> &nbsp;
+      {{ $messagewarning }}
+      </div>
+    </div>
 <br>
 @endif
           <div class="page-title">
