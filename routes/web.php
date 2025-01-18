@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\KoderekeningController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PejabatpelaksanaController;
 use App\Http\Controllers\PenyediaController;
@@ -56,6 +57,13 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::post('/program/update', [programController::class, 'update']);
     Route::get('/program/edit/{kode_program}', [programController::class, 'edit']);
     Route::get('/program/{kode_program}/hapus', [programController::class, 'hapus']);
+    //Kegiatan
+    Route::get('/kegiatan/view', [KegiatanController::class, 'view']);
+    Route::get('/kegiatan/create', [KegiatanController::class, 'create']);
+    Route::post('/kegiatan/store', [KegiatanController::class, 'store']);
+    Route::post('/kegiatan/update', [KegiatanController::class, 'update']);
+    Route::get('/kegiatan/edit/{kode_kegiatan}', [KegiatanController::class, 'edit']);
+    Route::get('/kegiatan/{kode_kegiatan}/hapus', [KegiatanController::class, 'hapus']);
 });
 
 //Akses Level User
