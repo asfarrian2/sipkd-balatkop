@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\KoderekeningController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\KegiatanController;
+use App\Http\Controllers\SubkegiatanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PejabatpelaksanaController;
 use App\Http\Controllers\PenyediaController;
@@ -64,6 +65,14 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::post('/kegiatan/update', [KegiatanController::class, 'update']);
     Route::get('/kegiatan/edit/{kode_kegiatan}', [KegiatanController::class, 'edit']);
     Route::get('/kegiatan/{kode_kegiatan}/hapus', [KegiatanController::class, 'hapus']);
+    //Sub_kegiatan
+    Route::get('/sub_kegiatan/view', [SubkegiatanController::class, 'view']);
+    Route::get('/sub_kegiatan/create', [SubkegiatanController::class, 'create']);
+    Route::post('/sub_kegiatan/store', [SubkegiatanController::class, 'store']);
+    Route::post('/sub_kegiatan/update', [SubkegiatanController::class, 'update']);
+    Route::get('/sub_kegiatan/edit/{kode_sub_kegiatan}', [SubkegiatanController::class, 'edit']);
+    Route::get('/sub_kegiatan/{kode_sub_kegiatan}/hapus', [SubkegiatanController::class, 'hapus']);
+    Route::get('/sub_kegiatan/kode_rekening/{kode_sub_kegiatan}', [SubkegiatanController::class, 'kode_rekening']);
 });
 
 //Akses Level User

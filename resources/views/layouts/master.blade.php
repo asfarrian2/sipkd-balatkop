@@ -71,7 +71,7 @@
                   <ul class="nav child_menu">
                     <li><a href="/program/view">Progam</a></li>
                     <li><a href="/kegiatan/view">Kegiatan</a></li>
-                    <li><a href="form_validation.html">Sub Kegiatan</a></li>
+                    <li><a href="/sub_kegiatan/view">Sub Kegiatan</a></li>
                   </ul>
                 </li>
                 <br> <h3>Monitoring</h3> <br>
