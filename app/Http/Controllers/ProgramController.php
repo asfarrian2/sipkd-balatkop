@@ -30,7 +30,6 @@ class ProgramController extends Controller
         $kode_program = $request->kode_program;
         $nama_program = $request->nama_program;
         $pagu_program = $request->pagu_program;
-        $pagu         = str_replace(',','', $pagu_program);
 
         $cekkode = DB::table('program')
         ->where('kode_program', '=', $kode_program)
@@ -42,7 +41,7 @@ class ProgramController extends Controller
             $data = [
                 'kode_program' => $kode_program,
                 'nama_program' => $nama_program,
-                'pagu_program' => $pagu
+                'pagu_program' => $pagu_program
             ];
             DB::table('program')->insert($data);
             return redirect('/program/view')->with(['success' => 'Data Berhasil Disimpan !']);
@@ -64,8 +63,7 @@ class ProgramController extends Controller
         $kode_program = $request->kode_program;
         $nama_program = $request->nama_program;
         $pagu_program = $request->pagu_program;
-        $pagu         = str_replace(',','', $pagu_program);
-
+        $pagu              = str_replace(',','', $pagu_program);
 
         $cekkode = DB::table('program')
         ->where('kode_program', $program_baru)

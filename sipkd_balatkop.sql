@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 19, 2025 at 05:17 PM
+-- Generation Time: Jan 20, 2025 at 10:27 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -44,6 +44,26 @@ CREATE TABLE `cache_locks` (
   `owner` varchar(255) NOT NULL,
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `detail_subkegiatan`
+--
+
+CREATE TABLE `detail_subkegiatan` (
+  `id_subdet` varchar(15) NOT NULL,
+  `kode_sub_kegiatan` varchar(50) NOT NULL,
+  `kode_rekening` varchar(50) NOT NULL,
+  `pagu_subdet` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `detail_subkegiatan`
+--
+
+INSERT INTO `detail_subkegiatan` (`id_subdet`, `kode_sub_kegiatan`, `kode_rekening`, `pagu_subdet`) VALUES
+('SUB00001', '2.17.01.1.01.0006', '5.1.01.03.07.0001', 1000000);
 
 -- --------------------------------------------------------
 
@@ -114,9 +134,9 @@ CREATE TABLE `kegiatan` (
 --
 
 INSERT INTO `kegiatan` (`kode_kegiatan`, `nama_kegiatan`, `pagu_kegiatan`, `kode_program`) VALUES
-('101010', 'Kucing', 5000000, '2.17.07'),
-('5.12.1.1221', 'Tes', 1200000, '2.17.01'),
-('5432', 'Ayam', 1222222, '2.17.05');
+('2.17.01.1.01', 'Perencanaan, Penganggaran, dan Evaluasi Kinerja Perangkat Daerah', 68331700, '2.17.01'),
+('2.17.01.1.02', 'Administrasi Keuangan Perangkat Daerah', 124707500, '2.17.01'),
+('2.17.01.1.05', 'Administrasi Kepegawaian Perangkat Daerah', 259120000, '2.17.01');
 
 -- --------------------------------------------------------
 
@@ -236,7 +256,7 @@ INSERT INTO `penyedia` (`id_penyedia`, `nama`, `nip`, `npwp`, `no_rekening`, `ke
 CREATE TABLE `program` (
   `kode_program` varchar(8) NOT NULL,
   `nama_program` varchar(75) NOT NULL,
-  `pagu_program` int(15) NOT NULL
+  `pagu_program` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -244,9 +264,9 @@ CREATE TABLE `program` (
 --
 
 INSERT INTO `program` (`kode_program`, `nama_program`, `pagu_program`) VALUES
-('2.17.01', 'Program Penunjang Urusan Pemerintah Daerah', 1000000),
-('2.17.05', 'Program Pendidikan dan Latihan Perkoperasian', 4000000),
-('2.17.07', 'Program Pemberdayaan Usaha Menengah, Usaha Kecil, dan Usaha Mikro (UMKM)', 1000000);
+('2.17.01', 'Program Penunjang Urusan Pemerintah Daerah', 7134000000),
+('2.17.05', 'Program Pendidikan dan Latihan Perkoperasian', 1548000000),
+('2.17.07', 'Program Pemberdayaan Usaha Menengah, Usaha Kecil, dan Usaha Mikro (UMKM)', 1982000000);
 
 -- --------------------------------------------------------
 
@@ -268,21 +288,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('TUOmc0jtWHc73hgdMjqpm6tUkhNBCSYlpSIVcavF', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoidlpQWmtkdVNLTE9vQWxXeW5TZjl3WFJjYk5GbloyWWN5NGFjN0RMbSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9zdWJfa2VnaWF0YW4va29kZV9yZWtlbmluZy81LjEyLjA1LjAwMDEiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1737302850);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `sub_detail1`
---
-
-CREATE TABLE `sub_detail1` (
-  `id_subdet1` int(15) NOT NULL,
-  `kode_sub_kegiatan` varchar(15) NOT NULL,
-  `kode_rekening` varchar(15) NOT NULL,
-  `pagu_subdet1` int(15) NOT NULL,
-  `rk_subdet1` int(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+('YwgmUwHq8MlQY7S0XpGOiiYLdasEQObmDoIOfFAe', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoicXp2c2F4YWxVVXhNZmhuZGpGZlMxd3hiNTVZVlQ0WW9ySjZIUEtPTCI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjY2OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvc3ViX2tlZ2lhdGFuL2tvZGVfcmVrZW5pbmcvMi4xNy4wMS4xLjAxLjAwMDYiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1737364952);
 
 -- --------------------------------------------------------
 
@@ -291,9 +297,9 @@ CREATE TABLE `sub_detail1` (
 --
 
 CREATE TABLE `sub_kegiatan` (
-  `kode_sub_kegiatan` varchar(15) NOT NULL,
-  `nama_sub_kegiatan` varchar(75) NOT NULL,
-  `pagu_sub_kegiatan` int(15) NOT NULL,
+  `kode_sub_kegiatan` varchar(30) NOT NULL,
+  `nama_sub_kegiatan` varchar(150) NOT NULL,
+  `pagu_sub_kegiatan` double NOT NULL,
   `kode_kegiatan` varchar(15) NOT NULL,
   `id_pejabat` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -303,7 +309,10 @@ CREATE TABLE `sub_kegiatan` (
 --
 
 INSERT INTO `sub_kegiatan` (`kode_sub_kegiatan`, `nama_sub_kegiatan`, `pagu_sub_kegiatan`, `kode_kegiatan`, `id_pejabat`) VALUES
-('5.12.05.0001', 'Koordinasi dan Konsultasi', 1000000, '5.12.1.1221', 2);
+('2.17.01.1.01.0006', 'Koordinasi dan Penyusunan Laporan Capaian Kinerja dan Ikhtisar Realisasi Kinerja SKPD', 68331700, '2.17.01.1.01', 2),
+('2.17.01.1.02.0002', 'Penyediaan Administrasi Pelaksanaan Tugas ASN', 124707500, '2.17.01.1.02', 2),
+('2.17.01.1.02.0004', 'Koordinasi dan Pelaksanaan Akuntansi SKPD', 53300400, '2.17.01.1.02', 2),
+('2.17.01.1.05.0009', 'Pendidikan dan Pelatihan Pegawai Berdasarkan Tugas dan Fungsi', 259120000, '2.17.01.1.05', 2);
 
 -- --------------------------------------------------------
 
@@ -352,6 +361,12 @@ ALTER TABLE `cache`
 --
 ALTER TABLE `cache_locks`
   ADD PRIMARY KEY (`key`);
+
+--
+-- Indexes for table `detail_subkegiatan`
+--
+ALTER TABLE `detail_subkegiatan`
+  ADD PRIMARY KEY (`id_subdet`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -424,12 +439,6 @@ ALTER TABLE `sessions`
   ADD KEY `sessions_last_activity_index` (`last_activity`);
 
 --
--- Indexes for table `sub_detail1`
---
-ALTER TABLE `sub_detail1`
-  ADD PRIMARY KEY (`id_subdet1`);
-
---
 -- Indexes for table `sub_kegiatan`
 --
 ALTER TABLE `sub_kegiatan`
@@ -475,12 +484,6 @@ ALTER TABLE `pejabat_pelaksana`
 --
 ALTER TABLE `penyedia`
   MODIFY `id_penyedia` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `sub_detail1`
---
-ALTER TABLE `sub_detail1`
-  MODIFY `id_subdet1` int(15) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`

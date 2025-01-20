@@ -45,7 +45,7 @@ class SubkegiatanController extends Controller
         $kode_sub_kegiatan = $request->kode_sub_kegiatan;
         $nama_sub_kegiatan = $request->nama_sub_kegiatan;
         $pagu_sub_kegiatan = $request->pagu_sub_kegiatan;
-        $pagu         = str_replace(',','', $pagu_sub_kegiatan);
+        $pagu              = str_replace(',','', $pagu_sub_kegiatan);
 
         $cekkode = DB::table('sub_kegiatan')
         ->where('kode_sub_kegiatan', '=', $kode_sub_kegiatan)
@@ -150,15 +150,14 @@ class SubkegiatanController extends Controller
         ->where('kode_sub_kegiatan', $kode_sub_kegiatan)
         ->first();
 
-        $data_kr = DB::table('sub_kegiatan')
-        ->Join('kegiatan', 'sub_kegiatan.kode_kegiatan', '=', 'kegiatan.kode_kegiatan')
-        ->Join('program', 'kegiatan.kode_program', '=', 'program.kode_program')
-        ->Join('pejabat_pelaksana', 'sub_kegiatan.id_pejabat', '=', 'pejabat_pelaksana.id_pejabat')
-        ->select('sub_kegiatan.*', 'kegiatan.*', 'program.*', 'pejabat_pelaksana.*')
-        ->orderBy('kegiatan.kode_kegiatan')
+        $data_subdet = DB::table('detail_subkegiatan')
+        ->Join('sub_kegiatan', 'detail_subkegiatan.kode_sub_kegiatan', '=', 'sub_kegiatan.kode_sub_kegiatan')
+        ->Join('kode_rekening', 'detail_subkegiatan.kode_rekening', '=', 'kode_rekening.kode_rekening')
+        ->select('detail_subkegiatan.*', 'sub_kegiatan.*', 'kode_rekening.*')
+        ->orderBy('detail_subkegiatan.kode_rekening')
         ->get();
 
-         return view('admin.sub_kegiatan.krekening', compact('sub_kegiatan', 'pptk', 'kegiatan', 'data_kr'));
+         return view('admin.sub_kegiatan.krekening', compact('sub_kegiatan', 'pptk', 'kegiatan', 'data_subdet'));
      }
 
 

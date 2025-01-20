@@ -115,17 +115,17 @@
                             <tr>
                             <th width="10px" class="text-center">No.</th>
                             <th width="200px" class="text-center">Kode Rekening</th>
-                            <th width="250px" class="text-center">Nama Rekening</th>
+                            <th width="500px" class="text-center">Nama Rekening</th>
                             <th class="text-center">Pagu</th>
                             <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data_kr as $d)
+                            @foreach ($data_subdet as $d)
                             <tr>
                             <td class="text-center">{{ $loop->iteration }}</td>
-                            <td>{{ $d->kode_sub_kegiatan}}</td>
-                            <td>{{ $d->nama_sub_kegiatan }}</td>
+                            <td>{{ $d->kode_rekening}}</td>
+                            <td>{{ $d->nama_rekening }}</td>
                             <td>Rp <?php echo number_format($d->pagu_sub_kegiatan ,2,',','.')?> </td>
                         @csrf
                             <td><a href="/sub_kegiatan/kode_rekening/{{ $d->kode_sub_kegiatan }}" title="Detail Kode Rekening"><i class="fa fa-tasks text-succsess btn btn-primary btn-sm" ></i></a>
@@ -141,11 +141,11 @@
               </div>
             </div>
 <!-- End Begin Tabel -->
+        </div>
+    </div>
 </div>
 </div>
-
-		</div>
-	</div>
+</div>
 
 
 @endsection
