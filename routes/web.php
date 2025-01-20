@@ -73,6 +73,8 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('/sub_kegiatan/edit/{kode_sub_kegiatan}', [SubkegiatanController::class, 'edit']);
     Route::get('/sub_kegiatan/{kode_sub_kegiatan}/hapus', [SubkegiatanController::class, 'hapus']);
     Route::get('/sub_kegiatan/kode_rekening/{kode_sub_kegiatan}', [SubkegiatanController::class, 'kode_rekening']);
+    Route::post('/sub_kegiatan/subdet/store', [SubkegiatanController::class, 'storedetail']);
+    Route::get('/sub_kegiatan/{kode_sub_kegiatan}/hapussubdet', [SubkegiatanController::class, 'hapussubdet']);
 });
 
 //Akses Level User

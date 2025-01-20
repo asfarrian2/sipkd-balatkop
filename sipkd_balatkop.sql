@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 20, 2025 at 10:27 AM
+-- Generation Time: Jan 20, 2025 at 05:54 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -63,7 +63,10 @@ CREATE TABLE `detail_subkegiatan` (
 --
 
 INSERT INTO `detail_subkegiatan` (`id_subdet`, `kode_sub_kegiatan`, `kode_rekening`, `pagu_subdet`) VALUES
-('SUB00001', '2.17.01.1.01.0006', '5.1.01.03.07.0001', 1000000);
+('SUB0001', '2.17.01.1.01.0006', '5.1.01.03.07.0001', 1000000),
+('SUB0002', '2.17.01.1.01.0006', '5.1.01.03.08.0002', 5000),
+('SUB0003', '2.17.01.1.01.0006', '5.1.02.01.01.0024', 5000),
+('SUB0004', '2.17.01.1.01.0006', '5.1.02.01.01.0025', 100000000);
 
 -- --------------------------------------------------------
 
@@ -288,7 +291,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('YwgmUwHq8MlQY7S0XpGOiiYLdasEQObmDoIOfFAe', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoicXp2c2F4YWxVVXhNZmhuZGpGZlMxd3hiNTVZVlQ0WW9ySjZIUEtPTCI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjY2OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvc3ViX2tlZ2lhdGFuL2tvZGVfcmVrZW5pbmcvMi4xNy4wMS4xLjAxLjAwMDYiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1737364952);
+('0HMSySnbYxRdQ2eM2xA9gQsBdJFzcyBxd2sjib6L', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiT1IyVXQ1c2EzeHVPZ3JLSlBZTFNYYmpObjBGU3pHVmJUWGl3R1JKUCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1737389633);
 
 -- --------------------------------------------------------
 
@@ -309,7 +312,6 @@ CREATE TABLE `sub_kegiatan` (
 --
 
 INSERT INTO `sub_kegiatan` (`kode_sub_kegiatan`, `nama_sub_kegiatan`, `pagu_sub_kegiatan`, `kode_kegiatan`, `id_pejabat`) VALUES
-('2.17.01.1.01.0006', 'Koordinasi dan Penyusunan Laporan Capaian Kinerja dan Ikhtisar Realisasi Kinerja SKPD', 68331700, '2.17.01.1.01', 2),
 ('2.17.01.1.02.0002', 'Penyediaan Administrasi Pelaksanaan Tugas ASN', 124707500, '2.17.01.1.02', 2),
 ('2.17.01.1.02.0004', 'Koordinasi dan Pelaksanaan Akuntansi SKPD', 53300400, '2.17.01.1.02', 2),
 ('2.17.01.1.05.0009', 'Pendidikan dan Pelatihan Pegawai Berdasarkan Tugas dan Fungsi', 259120000, '2.17.01.1.05', 2);
