@@ -140,7 +140,7 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            Copyright &copy; 2024 BAPENDA Provinsi KALIMANTAN SELATAN<a href="https://colorlib.com"></a>
+            Copyright &copy; 2024 BALAI PELATIHAN KOPERASI DAN USAHA KECIL PROV. KALIMANTAN SELATAN<a href="https://colorlib.com"></a>
           </div>
           <div class="clearfix"></div>
         </footer>

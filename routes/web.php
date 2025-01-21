@@ -5,6 +5,7 @@ use App\Http\Controllers\KoderekeningController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\SubkegiatanController;
+use App\Http\Controllers\RekeningdetailController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PejabatpelaksanaController;
 use App\Http\Controllers\PenyediaController;
@@ -74,7 +75,12 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('/sub_kegiatan/{kode_sub_kegiatan}/hapus', [SubkegiatanController::class, 'hapus']);
     Route::get('/sub_kegiatan/kode_rekening/{kode_sub_kegiatan}', [SubkegiatanController::class, 'kode_rekening']);
     Route::post('/sub_kegiatan/subdet/store', [SubkegiatanController::class, 'storedetail']);
+    Route::get('/sub_kegiatan/editsubdet/{kode_sub_kegiatan}', [SubkegiatanController::class, 'editdetail']);
+    Route::post('/sub_kegiatan/updatesubdet', [SubkegiatanController::class, 'updatedetail']);
     Route::get('/sub_kegiatan/{kode_sub_kegiatan}/hapussubdet', [SubkegiatanController::class, 'hapussubdet']);
+        //Rekening Detail
+        Route::get('/rekeningdetail/{id_subdet}', [RekeningdetailController::class, 'view']);
+
 });
 
 //Akses Level User

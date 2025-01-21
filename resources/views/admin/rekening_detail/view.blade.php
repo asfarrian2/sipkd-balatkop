@@ -35,13 +35,13 @@
 @endif
 <!-- End Pesan Peringatan -->
 
-<div class="col-md-12 col-sm-12 ">
+<div class="col-md-6 col-sm-12 ">
     <div class="x_panel">
         <div class="x_title">
             <h2>SUB KEGIATAN</h2>
             <div class="clearfix"></div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-8">
           <div id="" class="pull-left" style="background: #fff;    padding: 5px 10px; border: 1px solid #ccc">
             <i class="fa fa-home"></i>
             <span><a href="/dashboard" style="color: #0a803f">Home</a> /
@@ -52,54 +52,134 @@
 		<div class="x_content">
 		    <br>
                 <div class="item form-group">
-                    <div class="col-md-6 col-sm-6 ">
-                        <input type="hidden" name="kode_sub_kegiatan" value="{{ $sub_kegiatan->kode_sub_kegiatan }}" id="first-name" required="required" class="form-control ">
+                    <div class="col-md-8 col-sm-6 ">
+                        <input type="hidden" name="kode_sub_kegiatan" value="{{ $data_subdet->kode_sub_kegiatan }}" id="first-name" required="required" class="form-control ">
                     </div>
                 </div>
                 <div class="item form-group">
 					<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Kegiatan
 					</label>
-					<div class="col-md-6 col-sm-6 ">
-						<input type="text" readonly name="kode_kegiatan" value="{{ $sub_kegiatan->kode_program }}.{{ $sub_kegiatan->kode_kegiatan }} - {{ $sub_kegiatan->nama_kegiatan}}" id="first-name" required="required" class="form-control ">
+					<div class="col-md-8 col-sm-6 ">
+						<input type="text" readonly name="kode_kegiatan" value="{{ $data_subdet->kode_program }}.{{ $data_subdet->kode_kegiatan }} - {{ $data_subdet->nama_kegiatan}}" id="first-name" required="required" class="form-control ">
 					</div>
 				</div>
 				<div class="item form-group">
 					<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Kode Sub kegiatan
 					</label>
-					<div class="col-md-6 col-sm-6 ">
-						<input type="text" readonly name="sub_kegiatan_baru" value="{{ $sub_kegiatan->kode_sub_kegiatan }}" id="first-name" required="required" class="form-control ">
+					<div class="col-md-8 col-sm-6 ">
+						<input type="text" readonly name="sub_kegiatan_baru" value="{{ $data_subdet->kode_sub_kegiatan }}" id="first-name" required="required" class="form-control ">
 					</div>
 				</div>
                 <div class="item form-group">
 					<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Nama Sub kegiatan
 					</label>
-					<div class="col-md-6 col-sm-6 ">
-						<input type="text" readonly name="nama_sub_kegiatan" value="{{ $sub_kegiatan->nama_sub_kegiatan }}" id="first-name" required="required" class="form-control ">
+					<div class="col-md-8 col-sm-6 ">
+						<input type="text" readonly name="nama_sub_kegiatan" value="{{ $data_subdet->nama_sub_kegiatan }}" id="first-name" required="required" class="form-control ">
 					</div>
 				</div>
                 <div class="item form-group">
 					<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Pagu
 					</label>
-					<div class="col-md-6 col-sm-6 ">
-						<input type="text" readonly name="pagu_sub_kegiatan" value="{{ $sub_kegiatan->pagu_sub_kegiatan }}" id="pagu"  class="form-control ">
+					<div class="col-md-8 col-sm-6 ">
+						<input type="text" readonly name="pagu_sub_kegiatan" value="{{ $data_subdet->pagu_sub_kegiatan }}" id="pagu"  class="form-control ">
 					</div>
                 </div>
                 <div class="item form-group">
 					<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">PPTK
 					</label>
-					<div class="col-md-6 col-sm-6 ">
-						<input type="text" readonly name="pagu_sub_kegiatan" value="{{ $sub_kegiatan->nama_pejabat }}" id="pagu"  class="form-control ">
-					</div>
+					<div class="col-md-8 col-sm-6 ">
+						<input type="text" readonly name="pagu_sub_kegiatan" value="{{ $data_subdet->nama_pejabat }}" id="pagu"  class="form-control ">
 					</div>
 				</div>
 			</div>
+		</div>
+    </div>
+</div>
 
             <!-- Begin Judul Halaman -->
-<div class="row">
-<div class="col-md-12 col-sm-12 ">
+
+            <div class="col-md-6 col-sm-12 ">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>KODE REKENING</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br>
+                            <div class="item form-group">
+                                <div class="col-md-8 col-sm-6 ">
+                                    <input type="hidden" name="kode_sub_kegiatan" value="{{ $data_subdet->id_subdet }}" id="first-name" required="required" class="form-control ">
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Kode Rekening
+                                </label>
+                                <div class="col-md-8 col-sm-6 ">
+                                    <input type="text" readonly name="pagu_sub_kegiatan" value="{{ $data_subdet->kode_rekening }}" id="pagu"  class="form-control ">
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Nama Rekening
+                                </label>
+                                <div class="col-md-8 col-sm-6 ">
+                                    <input type="text" readonly name="kode_kegiatan" value="{{ $data_subdet->nama_rekening }}" id="first-name" required="required" class="form-control ">
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Pagu
+                                </label>
+                                <div class="col-md-8 col-sm-6 ">
+                                    <input type="text" readonly name="pagu_sub_kegiatan" value="{{ $data_subdet->pagu_sub_kegiatan }}" id="pagu"  class="form-control ">
+                                </div>
+                            </div>
+                            <div class="x_title">
+                                <div class="clearfix"></div>
+                            </div>
+                            <h2>TAMBAH SPESIFIKASI</h2>
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Uraian / Spesifikasi
+                                </label>
+                                <div class="col-md-8 col-sm-6 ">
+                                    <input type="text" name="kode_kegiatan" value="{{ $data_subdet->nama_rekening }}" id="first-name" required="required" class="form-control ">
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Pagu
+                                </label>
+                                <div class="col-md-8 col-sm-6 ">
+                                    <input type="text" name="kode_kegiatan" value="{{ $data_subdet->nama_rekening }}" id="first-name" required="required" class="form-control ">
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Koefesien
+                                </label>
+                                <div class="col-md-8 col-sm-6 ">
+                                    <input type="number" name="kode_kegiatan" value="{{ $data_subdet->nama_rekening }}" id="first-name" required="required" class="form-control ">
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Satuan
+                                </label>
+                                <div class="col-md-8 col-sm-6 ">
+                                    <input type="text" name="kode_kegiatan" value="{{ $data_subdet->nama_rekening }}" id="first-name" required="required" class="form-control ">
+                                </div>
+                            </div>
+				            <div class="item form-group">
+				            	<div class="col-md-6 col-sm-6 offset-md-3">
+				            		<button type="submit" class="btn btn-success">Simpan</button>
+                                    <a href="javascript:window.history.go(-1);" class="btn btn-dark">Batal</a>
+				            	</div>
+				            </div>
+		        	        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+<div class="col-md-12 ">
     <div class="x_panel">
         <div class="x_title">
-            <h2>REKENING</h2>
+            <h2>SPESIFIKASI / RINCIAN</h2>
             <div class="clearfix"></div>
         </div>
         <div class="col-md-4">
@@ -127,32 +207,33 @@
                         <thead>
                             <tr>
                             <th width="10px" class="text-center">No.</th>
-                            <th class="text-center">Kode Rekening</th>
-                            <th class="text-center">Nama Rekening</th>
+                            <th class="text-center">Uraian</th>
+                            <th class="text-center">Koefesien</th>
                             <th class="text-center">Pagu</th>
                             <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data_subdet as $d)
+                            @foreach ($data_rekening as $d)
                             <tr>
                             <td class="text-center">{{ $loop->iteration }}</td>
-                            <td>{{ $d->kode_rekening}}</td>
-                            <td>{{ $d->nama_rekening }}</td>
-                            <td>Rp <?php echo number_format($d->pagu_subdet ,2,',','.')?> </td>
+                            <td>{{ $d->uraian_rekdet}}</td>
+                            <td>{{ $d->koefesien_rekdet}} {{ $d->satuan_rekdet}}</td>
+                            <td>Rp <?php echo number_format($d->pagu_rekdet ,2,',','.')?> </td>
                         @csrf
-                            <td><a href="/rekeningdetail/{{ $d->id_subdet }}" title="Detail Kode Rekening"><i class="fa fa-eye text-succsess btn btn-dark btn-sm" ></i></a>
+                            <td>
                             <a href="/sub_kegiatan/editsubdet/{{ $d->id_subdet }}" title="Edit Data"><i class="fa fa-pencil text-succsess btn btn-warning btn-sm" ></i></a>
                             <a class="hapus" href="#" data-id="{{ $d->id_subdet }}" title="Hapus Data"><i class="hapus fa fa-trash text-succsess btn btn-danger btn-sm" ></i></a>
                             </td>
                             </tr>
-                        @endforeach
+
                       </tbody>
                       <tfoot>
                         <tr>
                         <th colspan="3" style="text-align: center;">Jumlah</th>
                         <th colspan="2">Rp <?php echo number_format($sum ,2,',','.')?> </th>
                         </tr>
+                        @endforeach
                       </tfoot>
                     </table>
                   </div>
@@ -167,69 +248,6 @@
 </div>
 </div>
 </div>
-<!-- Modal Tambah -->
-<div class="modal modal-blur fade" id="modal-inputobjek" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Tambah Rekening</h5>
-                <button type="button" class="fa fa-close close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form action="/sub_kegiatan/subdet/store" method="POST" id="form_tambah_rekning">
-                @csrf
-                <div class="row">
-                        <div class="col-12">
-                            <div class="input-icon mb-3">
-                            <span>REKENING</span>
-                            <select name="input_kode_rekening" id="unit" class="form-control" required="required">
-                            <option value="">Pilih Rekening</option>
-                            @foreach ($kode_rekening as $d)
-                            <option value="{{ $d->kode_rekening }}">{{$d->kode_rekening}} - {{$d->nama_rekening}} </option>
-                             @endforeach
-                            </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="input-icon mb-3">
-                                <span>PAGU</span>
-                                <input type="text" id="duit" class="form-control duit" name="pagu_sub_det" required>
-                            </div>
-                        </div>
-                    </div>
-                    <input hidden type="text" value="{{ $sub_kegiatan->kode_sub_kegiatan}}" id="" class="form-control duit" name="input_kode_sub_kegiatan" required>
-                    <div class="row mt-2">
-                        <div class="col-12">
-                            <div class="form-group">
-                                <button class="btn btn-success w-100">
-                                    SIMPAN
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-              </div>
-            </div>
-<!-- Edit Modal -->
-
-<div class="modal modal-blur fade" id="modal-edit" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Edit Rekening</h5>
-                <button type="button" class="fa fa-close close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body" id="loadeditform">
-
-       </div>
-   </div>
-</div>
-</div>
-</div>
-</div>
-
 
 
 @endsection

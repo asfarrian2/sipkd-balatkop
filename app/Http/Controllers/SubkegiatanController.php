@@ -211,16 +211,40 @@ class SubkegiatanController extends Controller
 
      }
 
-     public function editdetail(Request $request)
+     public function editdetail($id_subdet)
     {
 
-        $id_subdet = $request->id_subdet;
-
-        $detail_subkegiatan = DB::table('detail_subkegiatan')
+        $detail_subdet = DB::table('detail_subkegiatan')
+        ->Join('sub_kegiatan', 'detail_subkegiatan.kode_sub_kegiatan', '=', 'sub_kegiatan.kode_sub_kegiatan')
+        ->Join('kegiatan', 'sub_kegiatan.kode_kegiatan', '=', 'kegiatan.kode_kegiatan')
+        ->Join('program', 'kegiatan.kode_program', '=', 'program.kode_program')
+        ->Join('pejabat_pelaksana', 'sub_kegiatan.id_pejabat', '=', 'pejabat_pelaksana.id_pejabat')
+        ->Join('kode_rekening', 'detail_subkegiatan.kode_rekening', '=', 'kode_rekening.kode_rekening')
+        ->select('detail_subkegiatan.*','sub_kegiatan.*', 'kegiatan.*', 'program.*', 'pejabat_pelaksana.*', 'kode_rekening.*')
         ->where('id_subdet', $id_subdet)
         ->first();
 
-        return view('admin.sub_kegiatan.editdetail', compact('detail_subkegiatan'));
+        return view('admin.sub_kegiatan.editdetail', compact('detail_subdet'));
+
+    }
+
+    public function updatedetail(Request $request){
+
+        $id_subdet   = $request->id_subdet;
+        $pagu_subdet = $request->pagu_subdet;
+        $pagu        = str_replace(',','', $pagu_subdet);
+        $kode_sub_kegiatan = $request->kode_sub_kegiatan;
+
+        $data = [
+            'pagu_subdet'     => $pagu
+        ];
+
+        $update = DB::table('detail_subkegiatan')->where('id_subdet', $id_subdet)->update($data);
+        if ($update) {
+            return Redirect::to('/sub_kegiatan/kode_rekening/'.$kode_sub_kegiatan)->with(['success' => 'Data Berhasil Diubah !']);
+        } else {
+            return Redirect::back()->with(['warning' => 'Data Gagal Diubah !']);
+        }
     }
 
     public function hapussubdet($id_subdet)
