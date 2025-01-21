@@ -80,6 +80,9 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('/sub_kegiatan/{kode_sub_kegiatan}/hapussubdet', [SubkegiatanController::class, 'hapussubdet']);
         //Rekening Detail
         Route::get('/rekeningdetail/{id_subdet}', [RekeningdetailController::class, 'view']);
+        Route::post('/rekeningdetail/store', [RekeningdetailController::class, 'store']);
+        Route::get('/rekeningdetail/edit/{id_rekdet}', [RekeningdetailController::class, 'edit']);
+        Route::post('/rekeningdetail/update', [RekeningdetailController::class, 'update']);
 
 });
 
