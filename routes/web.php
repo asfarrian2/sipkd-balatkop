@@ -83,6 +83,7 @@ Route::middleware(['auth','admin'])->group(function () {
         Route::post('/rekeningdetail/store', [RekeningdetailController::class, 'store']);
         Route::get('/rekeningdetail/edit/{id_rekdet}', [RekeningdetailController::class, 'edit']);
         Route::post('/rekeningdetail/update', [RekeningdetailController::class, 'update']);
+        Route::get('/rekeningdetail/{id_rekdet}/hapus', [RekeningdetailController::class, 'hapus']);
 
 });
 
