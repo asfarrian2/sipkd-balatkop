@@ -80,7 +80,7 @@
                 <li><a><i class="fa fa-credit-card"></i> KEUANGAN <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
                   <li><a href="tables_dynamic.html">SPP SPM LS</a></li>
-                    <li><a href="tables.html">Uang Pelimpahan (UP)</a></li>
+                    <li><a href="/up/view">Uang Pelimpahan (UP)</a></li>
                     <li><a href="tables_dynamic.html">Belanja</a></li>
                     <li><a href="tables.html">Pajak</a></li>
                   </ul>

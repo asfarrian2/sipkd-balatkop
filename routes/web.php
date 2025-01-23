@@ -6,6 +6,7 @@ use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\SubkegiatanController;
 use App\Http\Controllers\RekeningdetailController;
+use App\Http\Controllers\UpController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PejabatpelaksanaController;
 use App\Http\Controllers\PenyediaController;
@@ -83,6 +84,14 @@ Route::middleware(['auth','admin'])->group(function () {
         Route::post('/rekeningdetail/store', [RekeningdetailController::class, 'store']);
         Route::get('/rekeningdetail/edit/{id_rekdet}', [RekeningdetailController::class, 'edit']);
         Route::post('/rekeningdetail/update', [RekeningdetailController::class, 'update']);
+    //Uang Pelimpahan
+    Route::get('/up/view', [UpController::class, 'view']);
+    Route::get('/up/create', [UpController::class, 'create']);
+    Route::post('/up/store', [UpController::class, 'store']);
+    Route::post('/up/update', [UpController::class, 'update']);
+    Route::get('/up/edit/{id_up}', [UpController::class, 'edit']);
+    Route::get('/up/{id_up}/hapus', [UpController::class, 'hapus']);
+    Route::get('/up/verifikasi/{id_up}', [UpController::class, 'lock']);
 
 });
 
