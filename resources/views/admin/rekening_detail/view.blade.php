@@ -45,7 +45,8 @@
           <div id="" class="pull-left" style="background: #fff;    padding: 5px 10px; border: 1px solid #ccc">
             <i class="fa fa-home"></i>
             <span><a href="/dashboard" style="color: #0a803f">Home</a> /
-            <i class="fa fa-database"></i> <a href="/sub_kegiatan/view" style="color: #0a803f">Sub Kegiatan</a> /
+            <i class="fa fa-database"></i> <a href="/sub_kegiatan/view"  style="color: #0a803f">Sub Kegiatan</a> /
+            <i class="fa fa-database"></i> <a href="/sub_kegiatan/kode_rekening/{{$data_subdet->kode_sub_kegiatan}}"  style="color: #0a803f">Kode Rekening</a> /
             <i class="fa fa-tasks"></i> Rekening Detail</span> <b class="caret"></b>
           </div>
         </div>
@@ -129,7 +130,7 @@
                     <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Pagu
                     </label>
                     <div class="col-md-8 col-sm-6 ">
-                        <input type="text" readonly name="pagu_sub_kegiatan" value="{{ $data_subdet->pagu_sub_kegiatan }}" id="duit"  class="form-control ">
+                        <input type="text" readonly name="pagu_sub_kegiatan" value="{{ $data_subdet->pagu_subdet }}" id="duit"  class="form-control ">
                     </div>
                 </div>
                 <div class="x_title">
@@ -150,7 +151,7 @@
                     <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Pagu
                     </label>
                     <div class="col-md-8 col-sm-6 ">
-                        <input type="text" name="pagu_rekdet" id="first-name" required="required" class="form-control ">
+                        <input type="text" name="pagu_rekdet" id="duit2" required="required" class="form-control ">
                     </div>
                 </div>
                 <div class="item form-group">
@@ -212,7 +213,7 @@
                         @csrf
                             <td>
                             <a href="/rekeningdetail/edit/{{ $d->id_rekdet }}" title="Edit Data"><i class="fa fa-pencil text-succsess btn btn-warning btn-sm" ></i></a>
-                            <a class="hapus" href="#" data-id="{{ $d->id_subdet }}" title="Hapus Data"><i class="hapus fa fa-trash text-succsess btn btn-danger btn-sm" ></i></a>
+                            <a class="hapus" href="#" data-id="{{ $d->id_rekdet }}" title="Hapus Data"><i class="hapus fa fa-trash text-succsess btn btn-danger btn-sm" ></i></a>
                             </td>
                             </tr>
                             @endforeach
@@ -257,6 +258,14 @@
             reverse:true
         });
     });
+
+    $(document).ready(function(){
+        $('#duit2').mask("#,##0", {
+            reverse:true
+        });
+    });
+
+
 </script>
 
 
@@ -264,6 +273,8 @@
  $(".objek").click(function() {
     $("#modal-inputobjek").modal("show");
 });
+
+
 
 var span = document.getElementsByClassName("close")[0];
 </script>
@@ -294,7 +305,7 @@ var span = document.getElementsByClassName("close")[0];
 </script>
 <script>
     $('.hapus').click(function(){
-        var kode_sub_kegiatan = $(this).attr('data-id');
+        var id_rekdet = $(this).attr('data-id');
     Swal.fire({
       title: "Apakah Anda Yakin Data Ini Ingin Di Hapus ?",
       text: "Jika Ya Maka Data Akan Terhapus Permanen",
@@ -305,7 +316,7 @@ var span = document.getElementsByClassName("close")[0];
       confirmButtonText: "Ya, Hapus Saja!"
     }).then((result) => {
       if (result.isConfirmed) {
-        window.location = "/sub_kegiatan/"+kode_sub_kegiatan+"/hapussubdet"
+        window.location = "/rekeningdetail/"+id_rekdet+"/hapus"
         Swal.fire({
           title: "Data Berhasil Dihapus !",
           icon: "success"

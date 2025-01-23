@@ -211,17 +211,35 @@ class SubkegiatanController extends Controller
 
      }
 
-     public function editdetail(Request $request)
+     public function editdetail($id_subdet)
     {
 
-        $id_subdet = $request->id_subdet;
-
-        $detail_subkegiatan = DB::table('detail_subkegiatan')
+        $detail_subdet = DB::table('detail_subkegiatan')
+        ->join('kode_rekening', 'detail_subkegiatan.kode_rekening', '=', 'kode_rekening.kode_rekening')
         ->where('id_subdet', $id_subdet)
         ->first();
 
-        return view('admin.sub_kegiatan.editdetail', compact('detail_subkegiatan'));
+        return view('admin.sub_kegiatan.editdetail', compact('detail_subdet'));
     }
+
+    public function updatedetail(Request $request)
+    {
+        $kode_kegiatan = $request->kode_kegiatan;
+        $id_subdet = $request->id_subdet;
+        $pagu_subdet = $request->pagu_subdet;
+
+        $pagu        = str_replace(',','', $pagu_subdet);
+
+        $data =  [
+                'pagu_subdet' => $pagu
+            ];
+            $update = DB::table('detail_subkegiatan')->where('id_subdet', $id_subdet)->update($data);
+            if ($update) {
+                return redirect('/sub_kegiatan/kode_rekening/'.$kode_kegiatan)->with(['success' => 'Data Berhasil Diubah !']);
+            } else {
+                return Redirect::back()->with(['warning' => 'Data Gagal Diubah !']);
+            }
+     }
 
     public function hapussubdet($id_subdet)
     {

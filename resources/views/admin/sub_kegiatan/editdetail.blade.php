@@ -43,47 +43,15 @@
                     <div class="col-md-6 col-sm-6 ">
                         <input type="hidden" name="id_subdet" value="{{ $detail_subdet->id_subdet }}" id="first-name" required="required" class="form-control ">
                     </div>
+                    <div class="col-md-6 col-sm-6 ">
+                        <input type="hidden" name="kode_kegiatan" value="{{ $detail_subdet->kode_sub_kegiatan }}" id="first-name" required="required" class="form-control ">
+                    </div>
                 </div>
-                <div class="item form-group">
-					<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Kegiatan
-					</label>
-					<div class="col-md-6 col-sm-6 ">
-						<input type="text" readonly name="kode_kegiatan" value="{{ $detail_subdet->kode_program }}.{{ $detail_subdet->kode_kegiatan }} - {{ $detail_subdet->nama_kegiatan}}" id="first-name" required="required" class="form-control ">
-					</div>
-				</div>
-				<div class="item form-group">
-					<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Kode Sub kegiatan
-					</label>
-					<div class="col-md-6 col-sm-6 ">
-						<input type="text" readonly name="kode_sub_kegiatan" value="{{ $detail_subdet->kode_sub_kegiatan }}" id="first-name" required="required" class="form-control ">
-					</div>
-				</div>
-                <div class="item form-group">
-					<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Nama Sub kegiatan
-					</label>
-					<div class="col-md-6 col-sm-6 ">
-						<input type="text" readonly name="nama_detail_subdet" value="{{ $detail_subdet->nama_sub_kegiatan }}" id="first-name" required="required" class="form-control ">
-					</div>
-				</div>
-                <div class="item form-group">
-					<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Pagu
-					</label>
-					<div class="col-md-6 col-sm-6 ">
-						<input type="text" readonly name="pagu" value="{{ $detail_subdet->pagu_sub_kegiatan }}" id="pagu"  class="form-control ">
-					</div>
-                </div>
-                <div class="item form-group">
-					<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">PPTK
-					</label>
-					<div class="col-md-6 col-sm-6 ">
-						<input type="text" readonly name="pagu_detail_subdet" value="{{ $detail_subdet->nama_pejabat }}" id="pagu"  class="form-control ">
-					</div>
-				</div>
                 <div class="item form-group">
 					<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Kode Rekening
 					</label>
 					<div class="col-md-6 col-sm-6 ">
-						<input type="text" readonly name="kode_rekening" value="{{ $detail_subdet->kode_rekening }} - {{ $detail_subdet->nama_rekening }}" id="pagu"  class="form-control ">
+						<input type="text" readonly name="kode_rekening" value="{{ $detail_subdet->kode_rekening }} - {{ $detail_subdet->nama_rekening }}" id=""  class="form-control ">
 					</div>
 				</div>
                 <div class="item form-group">

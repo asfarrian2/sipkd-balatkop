@@ -112,6 +112,16 @@ class RekeningdetailController extends Controller
             }
      }
 
+     public function hapus($id_rekdet)
+     {
+        $delete = DB::table('rekening_det')->where('id_rekdet', $id_rekdet)->delete();
+        if ($delete) {
+            return Redirect::back()->with(['success' => 'Data Berhasil Dihapus !']);
+        } else {
+            return Redirect::back()->with(['warning' => 'Data Gagal Dihapus !']);
+        }
+     }
+
 
 
 }

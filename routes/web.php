@@ -84,6 +84,7 @@ Route::middleware(['auth','admin'])->group(function () {
         Route::post('/rekeningdetail/store', [RekeningdetailController::class, 'store']);
         Route::get('/rekeningdetail/edit/{id_rekdet}', [RekeningdetailController::class, 'edit']);
         Route::post('/rekeningdetail/update', [RekeningdetailController::class, 'update']);
+<<<<<<< HEAD
     //Uang Pelimpahan
     Route::get('/up/view', [UpController::class, 'view']);
     Route::get('/up/create', [UpController::class, 'create']);
@@ -92,6 +93,9 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('/up/edit/{id_up}', [UpController::class, 'edit']);
     Route::get('/up/{id_up}/hapus', [UpController::class, 'hapus']);
     Route::get('/up/verifikasi/{id_up}', [UpController::class, 'lock']);
+=======
+        Route::get('/rekeningdetail/{id_rekdet}/hapus', [RekeningdetailController::class, 'hapus']);
+>>>>>>> b7d6956aa497fa74120c88fc88a7544349c9df96
 
 });
 
