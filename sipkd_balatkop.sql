@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 22, 2025 at 05:44 AM
+-- Generation Time: Jan 23, 2025 at 06:27 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -63,16 +63,11 @@ CREATE TABLE `detail_subkegiatan` (
 --
 
 INSERT INTO `detail_subkegiatan` (`id_subdet`, `kode_sub_kegiatan`, `kode_rekening`, `pagu_subdet`) VALUES
-('SUB0001', '2.17.01.1.01.0006', '5.1.02.01.01.0024', 1000000),
 ('SUB0002', '2.17.01.1.01.0006', '5.1.02.01.01.0025', 239600),
 ('SUB0003', '2.17.01.1.01.0006', '5.1.02.01.01.0026', 42000),
 ('SUB0004', '2.17.01.1.01.0006', '5.1.02.01.01.0029', 9080100),
 ('SUB0005', '2.17.01.1.01.0006', '5.1.02.01.01.0052', 2360000),
-('SUB0006', '2.17.01.1.01.0006', '5.1.02.04.01.0001', 55610000),
-('SUB0007', '2.17.01.1.02.0002', '5.1.02.01.01.0024', 5961500),
-('SUB0008', '2.17.01.1.02.0002', '5.1.02.01.01.0025', 2022000),
-('SUB0009', '2.17.01.1.02.0002', '5.1.02.01.01.0029', 4500000),
-('SUB0010', '2.17.01.1.02.0002', '5.1.02.02.01.0027', 37200000);
+('SUB0006', '2.17.01.1.01.0006', '5.1.02.04.01.0001', 55610000);
 
 -- --------------------------------------------------------
 
@@ -287,7 +282,7 @@ INSERT INTO `program` (`kode_program`, `nama_program`, `pagu_program`) VALUES
 
 CREATE TABLE `rekening_det` (
   `id_rekdet` varchar(15) NOT NULL,
-  `uraian_rekdet` text NOT NULL,
+  `uraian_rekdet` varchar(120) NOT NULL,
   `pagu_rekdet` double NOT NULL,
   `koefesien_rekdet` double NOT NULL,
   `satuan_rekdet` varchar(30) NOT NULL,
@@ -300,34 +295,8 @@ CREATE TABLE `rekening_det` (
 
 INSERT INTO `rekening_det` (`id_rekdet`, `uraian_rekdet`, `pagu_rekdet`, `koefesien_rekdet`, `satuan_rekdet`, `id_subdet`) VALUES
 ('RD0001', 'Binder Clip 155', 32400, 2, 'Kotak', 'SUB0001'),
-('RD0002', 'Gunting Kertas HD 85', 61200, 2, 'Buah', 'SUB0001'),
-('RD0003', 'isi Stapler Besar No.24/5 atau No.369 (Joyko)', 2000, 1, 'Buah', 'SUB0001'),
-('RD0004', 'Lakban Hitam 1 1/2 inch', 37000, 2, 'Buah', 'SUB0001'),
-('RD0005', 'Map Biola 5002', 475000, 5, 'Box', 'SUB0001'),
-('RD0006', 'Map Kertas Biasa', 31000, 1, 'Pak', 'SUB0001'),
-('RD0007', 'Penanda/Pembatas Kertas', 8000, 1, 'Buah', 'SUB0001'),
-('RD0008', 'Penggaris besi 50 CM star star', 17000, 1, 'Buah', 'SUB0001'),
-('RD0009', 'Spidol Warna', 20600, 1, 'Buah', 'SUB0001'),
-('RD0010', 'Stempel Timbul/Bulat Stempel Timbul', 290000, 2, 'Kotak', 'SUB0001'),
-('RD0011', 'Trigonal clip/Papper Clip Sedang', 20500, 1, 'Kotak', 'SUB0001'),
-('RD0012', 'Trigonal clip/Papper Clip Kecil', 5300, 1, 'Kotak', 'SUB0001'),
-('RD0013', 'Amplop Putih Plester', 31200, 1, 'Pak', 'SUB0002'),
-('RD0014', 'Kertas Fotokopi 80 gram folio', 150400, 2, 'Rim', 'SUB0002'),
-('RD0015', 'Kertas Sampul', 58000, 2, 'Kotak', 'SUB0002'),
-('RD0016', 'Foto Copy', 42000, 105, 'Lembar', 'SUB0003'),
-('RD0017', 'Cartridge 9', 1400000, 4, 'Buah', 'SUB0004'),
-('RD0018', 'Cartridge Warna', 1600000, 4, 'Buah', 'SUB0004'),
-('RD0019', 'Hardisk Seagate 1', 1380100, 1, 'Unit', 'SUB0004'),
-('RD0020', 'Mouse Wireless', 500000, 2, 'Unit', 'SUB0004'),
-('RD0021', 'Usb/Flash Disk Flashdisk 1', 300000, 3, 'Unit', 'SUB0004'),
-('RD0022', 'Usb/Flash Disk Flashdisk 2', 900000, 6, 'Unit', 'SUB0004'),
-('RD0023', 'Tinta Printer Hitam', 1500000, 10, 'Botol', 'SUB0004'),
-('RD0024', 'Tinta Printer Warna', 1500000, 10, 'Botol', 'SUB0004'),
-('RD0025', 'Makan', 1800000, 40, 'Orang / kali', 'SUB0005'),
-('RD0026', 'Snack', 560000, 35, 'Orang / kali', 'SUB0005'),
-('RD0027', 'PEJABAT ESELON III/ GOL.IV Provinsi Sulawesi Utara', 23166000, 2, 'Orang / Perjalanan', 'SUB0006'),
-('RD0028', 'PEJABAT ESELON IV/ GOL. III,II,I & NON PNS Provinsi Sulawesi Utara', 22694000, 2, 'Orang / Perjalanan', 'SUB0006'),
-('RD0029', 'Uang Harian Perjalanan Dinas Dalam Negeri (Dalam Kota Lebih Dari Delapan Jam)  Provinsi Kalimantan Selatan', 9750000, 65, 'Orang / Hari', 'SUB0006');
+('RD0002', 'Gunting Kertas Sedang', 35900, 2, 'Buah', 'SUB0001'),
+('RD0003', 'Pelobang Kertas Kangoro', 189600, 2, 'Buah', 'SUB0001');
 
 -- --------------------------------------------------------
 
@@ -349,7 +318,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('gWdAsh7xXqa8lKBYekhPnnYFoxLhGZRzIrgvLooi', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiclVCUXpDVnQwUnFPaWJ4RU5XTTZZZFo2U01rUGJxTnlyUGQxMkJPcyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1737520048);
+('3dHyeSlUtzcfKlH178Vvf3WDFIWQv6YFhVmvjdY8', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoib3Qxa2RJRXZVVUpzZHBhNkJSWHJnV0tBNmRWd2k0cW1rZzRZc1hEcyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC91cC9jcmVhdGUiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1737653259);
 
 -- --------------------------------------------------------
 
@@ -374,6 +343,35 @@ INSERT INTO `sub_kegiatan` (`kode_sub_kegiatan`, `nama_sub_kegiatan`, `pagu_sub_
 ('2.17.01.1.02.0002', 'Penyediaan Administrasi Pelaksanaan Tugas ASN', 124707500, '2.17.01.1.02', 2),
 ('2.17.01.1.02.0004', 'Koordinasi dan Pelaksanaan Akuntansi SKPD', 53300400, '2.17.01.1.02', 2),
 ('2.17.01.1.05.0009', 'Pendidikan dan Pelatihan Pegawai Berdasarkan Tugas dan Fungsi', 259120000, '2.17.01.1.05', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transaksi`
+--
+
+CREATE TABLE `transaksi` (
+  `id_transaksi` varchar(8) NOT NULL,
+  `tgl` date NOT NULL,
+  `jenis` varchar(10) NOT NULL,
+  `tipe` varchar(10) NOT NULL,
+  `metode` varchar(10) NOT NULL,
+  `uraian` text NOT NULL,
+  `nominal` double NOT NULL,
+  `status` int(1) NOT NULL,
+  `tgl_bku` date DEFAULT NULL,
+  `kode_program` varchar(50) DEFAULT NULL,
+  `kode_kegiatan` varchar(50) DEFAULT NULL,
+  `kode_sub_kegiatan` varchar(50) DEFAULT NULL,
+  `kode_rekening` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `transaksi`
+--
+
+INSERT INTO `transaksi` (`id_transaksi`, `tgl`, `jenis`, `tipe`, `metode`, `uraian`, `nominal`, `status`, `tgl_bku`, `kode_program`, `kode_kegiatan`, `kode_sub_kegiatan`, `kode_rekening`) VALUES
+('BKU-0001', '2025-01-24', 'UP', 'masuk', 'non tunai', 'Uang Pelimpahan I bulan Januari 2025', 350000000, 1, '2025-01-24', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -504,6 +502,12 @@ ALTER TABLE `sessions`
 --
 ALTER TABLE `sub_kegiatan`
   ADD PRIMARY KEY (`kode_sub_kegiatan`);
+
+--
+-- Indexes for table `transaksi`
+--
+ALTER TABLE `transaksi`
+  ADD PRIMARY KEY (`id_transaksi`);
 
 --
 -- Indexes for table `users`
