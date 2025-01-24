@@ -95,7 +95,7 @@
                         @csrf
                             <td>
                             @if ($d->status_up == 0)
-                            <a href="/up/verifikasi/{{ $d->id_up }}" title="Verifikasi Data"><i class="fa fa-unlock text-succsess btn btn-info btn-sm" ></i></a>
+                            {{-- <a href="/up/verifikasi/{{ $d->id_up }}" title="Verifikasi Data"><i class="fa fa-unlock text-succsess btn btn-info btn-sm" ></i></a> --}}
                             <a href="/up/edit/{{ $d->id_up }}" title="Edit Data"><i class="fa fa-pencil text-succsess btn btn-warning btn-sm" ></i></a>
                             <a class="hapus" href="#" data-id="{{ $d->id_up }}" title="Hapus Data"><i class="hapus fa fa-trash text-succsess btn btn-danger btn-sm" ></i></a>
                             @else
@@ -120,10 +120,10 @@
                       <tfoot>
                         <tr>
                             @if(count($up) > 0)
-                            <th colspan="3" style="text-align: center;">Jumlah</th>
-                            <th colspan="2">{{'Rp' . number_format($total, 0, '', '.')}}</th>
+                            <th colspan="4" style="text-align: center;">Jumlah</th>
+                            <th colspan="2">{{'Rp' . number_format($total, 2, ',', '.')}}</th>
                             @else
-                            <th colspan="3" style="text-align: center;">Jumlah</th>
+                            <th colspan="4" style="text-align: center;">Jumlah</th>
                             <th colspan="2">Rp 0</th>
                             @endif
                         </tr>

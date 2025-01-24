@@ -76,14 +76,14 @@ class UpController extends Controller
     public function update(Request $request)
     {
         $id_up = $request->id_up;
-        $tgl = $request->tgl;
-        $nominal = $request->nominal;
+        $tgl_up = $request->tgl_up;
+        $nominal_up = $request->nominal_up;
 
-        $pagu = str_replace(',', '', $nominal);
+        $pagu = str_replace(',', '', $nominal_up);
 
         $data = [
-                    'tgl'       => $tgl,
-                    'nominal'   => $pagu
+                    'tgl_up'       => $tgl_up,
+                    'nominal_up'   => $pagu
                 ];
 
         $update=DB::table('up')->where('id_up', $id_up)->update($data);

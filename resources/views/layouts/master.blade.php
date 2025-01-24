@@ -75,7 +75,7 @@
                   </ul>
                 </li>
                 <br> <h3>Monitoring</h3> <br>
-                <li><a href="index.html"><i class="fa fa-line-chart"></i> SPJ</a></li>
+                <li><a href="index.html"><i class="fa fa-line-chart"></i> BKU</a></li>
                 <br> <h3>TRANSAKSI</h3> <br>
                 <li><a><i class="fa fa-credit-card"></i> KEUANGAN <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">

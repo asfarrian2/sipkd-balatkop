@@ -39,26 +39,26 @@
 		    <br>
 			<form action="/up/update" method="POST" data-parsley-validate class="form-horizontal form-label-left">
                 @csrf
-                <input type="text" hidden name="id_transaksi" value="{{ $up->id_transaksi }}" id=""  class="form-control ">
+                <input type="text" hidden name="id_up" value="{{ $up->id_up }}" id=""  class="form-control ">
                 <div class="item form-group">
 					<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Tanggal
 					</label>
 					<div class="col-md-2 col-sm-2">
-						<input type="date" name="tgl" value="{{ $up->tgl }}" id=""  class="form-control ">
+						<input type="date" name="tgl_up" value="{{ $up->tgl_up }}" id=""  class="form-control ">
 					</div>
 				</div>
                 <div class="item form-group">
 					<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Uraian
 					</label>
 					<div class="col-md-6 col-sm-6 ">
-						<input type="text" name="uraian" value="{{ $up->uraian }}" id=""  class="form-control ">
+						<input type="text" name="uraian_up" value="{{ $up->uraian_up }}" id=""  class="form-control ">
 					</div>
 				</div>
                 <div class="item form-group">
 					<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Jumlah (Rp)
 					</label>
 					<div class="col-md-6 col-sm-6 ">
-						<input type="text" name="nominal" value="{{ $up->nominal }}" id="pagu2"  class="form-control ">
+						<input type="text" name="nominal_up" value="{{ $up->nominal_up }}" id="pagu2"  class="form-control ">
 					</div>
 				</div>
 				<div class="ln_solid"></div>
