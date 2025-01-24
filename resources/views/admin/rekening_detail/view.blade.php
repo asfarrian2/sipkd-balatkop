@@ -97,7 +97,7 @@
     </div>
 </div>
 
-            <!-- Begin Judul Halaman -->
+<!-- Begin Judul Halaman -->
 
 <div class="col-md-6 col-sm-12 ">
     <div class="x_panel">

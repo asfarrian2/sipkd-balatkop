@@ -77,6 +77,7 @@
                         <thead>
                             <tr>
                             <th class="text-center">No.</th>
+                            <th class="text-center">Kode</th>
                             <th class="text-center">Tanggal</th>
                             <th class="text-center">Uraian</th>
                             <th class="text-center">Nominal</th>
@@ -87,22 +88,23 @@
                             @forelse ($up as $d)
                             <tr>
                             <td class="text-center">{{ $loop->iteration }}</td>
-                            <td>{{ date('d-m-Y', strtotime($d->tgl)) }}</td>
-                            <td>{{ $d->uraian }}</td>
-                            <td>Rp <?php echo number_format($d->nominal ,2,',','.')?> </td>
+                            <td>{{ $d->id_up }}</td>
+                            <td>{{ date('d-m-Y', strtotime($d->tgl_up)) }}</td>
+                            <td>{{ $d->uraian_up }}</td>
+                            <td>Rp <?php echo number_format($d->nominal_up ,2,',','.')?> </td>
                         @csrf
                             <td>
-                            @if ($d->status == 0)
-                            <a href="/up/verifikasi/{{ $d->id_transaksi }}" title="Verifikasi Data"><i class="fa fa-unlock text-succsess btn btn-info btn-sm" ></i></a>
-                            <a href="/up/edit/{{ $d->id_transaksi }}" title="Edit Data"><i class="fa fa-pencil text-succsess btn btn-warning btn-sm" ></i></a>
-                            <a class="hapus" href="#" data-id="{{ $d->id_transaksi }}" title="Hapus Data"><i class="hapus fa fa-trash text-succsess btn btn-danger btn-sm" ></i></a>
+                            @if ($d->status_up == 0)
+                            <a href="/up/verifikasi/{{ $d->id_up }}" title="Verifikasi Data"><i class="fa fa-unlock text-succsess btn btn-info btn-sm" ></i></a>
+                            <a href="/up/edit/{{ $d->id_up }}" title="Edit Data"><i class="fa fa-pencil text-succsess btn btn-warning btn-sm" ></i></a>
+                            <a class="hapus" href="#" data-id="{{ $d->id_up }}" title="Hapus Data"><i class="hapus fa fa-trash text-succsess btn btn-danger btn-sm" ></i></a>
                             @else
                             <a href="#" title="Terverifikasi"><i class="fa fa-lock text-succsess btn btn-success btn-sm" ></i></a>
                             @endif
                             </td>
                             </tr>
                             @php
-                            $total =+ $d->nominal;
+                            $total =+ $d->nominal_up;
                             @endphp
                             @empty
                                 {{-- jika data tidak ada, tampilkan pesan data tidak tersedia --}}
@@ -143,7 +145,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     $('.hapus').click(function(){
-        var id_transaksi = $(this).attr('data-id');
+        var id_up = $(this).attr('data-id');
     Swal.fire({
       title: "Apakah Anda Yakin Data Ini Ingin Di Hapus ?",
       text: "Jika Ya Maka Data Akan Terhapus Permanen",
@@ -154,7 +156,7 @@
       confirmButtonText: "Ya, Hapus Saja!"
     }).then((result) => {
       if (result.isConfirmed) {
-        window.location = "/up/"+id_transaksi+"/hapus"
+        window.location = "/up/"+id_up+"/hapus"
         Swal.fire({
           title: "Data Berhasil Dihapus !",
           icon: "success"

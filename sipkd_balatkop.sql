@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 23, 2025 at 06:27 PM
+-- Generation Time: Jan 24, 2025 at 10:23 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -318,7 +318,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('3dHyeSlUtzcfKlH178Vvf3WDFIWQv6YFhVmvjdY8', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoib3Qxa2RJRXZVVUpzZHBhNkJSWHJnV0tBNmRWd2k0cW1rZzRZc1hEcyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC91cC9jcmVhdGUiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1737653259);
+('FMfks3tRJ1POV0dOvlxFoDj2ULs0sZA7YbNlt75g', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoibENSMjJ0UmVTRngyNU5ScmIxVFV2bHY1dFhoeVdYS0VLdDhyYW1ZMSI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjI5OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvdXAvdmlldyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1737691625);
 
 -- --------------------------------------------------------
 
@@ -360,6 +360,7 @@ CREATE TABLE `transaksi` (
   `nominal` double NOT NULL,
   `status` int(1) NOT NULL,
   `tgl_bku` date DEFAULT NULL,
+  `kd_transaksi` varchar(15) NOT NULL,
   `kode_program` varchar(50) DEFAULT NULL,
   `kode_kegiatan` varchar(50) DEFAULT NULL,
   `kode_sub_kegiatan` varchar(50) DEFAULT NULL,
@@ -370,8 +371,29 @@ CREATE TABLE `transaksi` (
 -- Dumping data for table `transaksi`
 --
 
-INSERT INTO `transaksi` (`id_transaksi`, `tgl`, `jenis`, `tipe`, `metode`, `uraian`, `nominal`, `status`, `tgl_bku`, `kode_program`, `kode_kegiatan`, `kode_sub_kegiatan`, `kode_rekening`) VALUES
-('BKU-0001', '2025-01-24', 'UP', 'masuk', 'non tunai', 'Uang Pelimpahan I bulan Januari 2025', 350000000, 1, '2025-01-24', NULL, NULL, NULL, NULL);
+INSERT INTO `transaksi` (`id_transaksi`, `tgl`, `jenis`, `tipe`, `metode`, `uraian`, `nominal`, `status`, `tgl_bku`, `kd_transaksi`, `kode_program`, `kode_kegiatan`, `kode_sub_kegiatan`, `kode_rekening`) VALUES
+('BKU-0001', '2025-01-24', 'UP', 'masuk', 'non tunai', 'Uang Pelimpahan I bulan Januari 2025', 350000000, 1, '2025-01-24', '', NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `up`
+--
+
+CREATE TABLE `up` (
+  `id_up` varchar(5) NOT NULL,
+  `tgl_up` date NOT NULL,
+  `uraian_up` text NOT NULL,
+  `nominal_up` double NOT NULL,
+  `status_up` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `up`
+--
+
+INSERT INTO `up` (`id_up`, `tgl_up`, `uraian_up`, `nominal_up`, `status_up`) VALUES
+('UP-01', '2025-01-30', 'Uang Pelimpahan I bulan Januari 2025', 350000000, 0);
 
 -- --------------------------------------------------------
 
@@ -508,6 +530,12 @@ ALTER TABLE `sub_kegiatan`
 --
 ALTER TABLE `transaksi`
   ADD PRIMARY KEY (`id_transaksi`);
+
+--
+-- Indexes for table `up`
+--
+ALTER TABLE `up`
+  ADD PRIMARY KEY (`id_up`);
 
 --
 -- Indexes for table `users`

@@ -13,8 +13,8 @@ class UpController extends Controller
 {
     public function view()
     {
-        $up = DB::table('transaksi')
-            ->orderBy('transaksi.id_transaksi')
+        $up = DB::table('up')
+            ->orderBy('up.id_up')
             ->get();
 
             return view('admin.up.view', compact('up'));
@@ -28,21 +28,21 @@ class UpController extends Controller
     public function store(Request $request)
     {
 
-        $id_transaksi=DB::table('transaksi')
-        ->latest('id_transaksi', 'DESC')
+        $id_up=DB::table('up')
+        ->latest('id_up', 'DESC')
         ->first();
 
-        $kodeobjek ="BKU-";
+        $kodeobjek ="UP-";
 
-        if($id_transaksi == null){
-            $nomorurut = "0001";
+        if($id_up == null){
+            $nomorurut = "01";
         }else{
-            $nomorurut = substr($id_transaksi->id_transaksi, 4, 4) + 1;
-            $nomorurut = str_pad($nomorurut, 4, "0", STR_PAD_LEFT);
+            $nomorurut = substr($id_up->id_up, 3, 2) + 1;
+            $nomorurut = str_pad($nomorurut, 2, "0", STR_PAD_LEFT);
         }
         $id=$kodeobjek.$nomorurut;
 
-        $id_transaksi = $request->id_transaksi;
+        $id_up = $request->id_up;
         $tanggal = $request->tanggal;
         $uraian = $request->uraian;
         $nominal = $request->nominal;
@@ -50,16 +50,13 @@ class UpController extends Controller
         $pagu        = str_replace(',','', $nominal);
 
         $data = [
-            'id_transaksi' => $id,
-            'tgl' => $tanggal,
-            'uraian' => $uraian,
-            'nominal' => $pagu,
-            'jenis' => 'UP',
-            'tipe' => 'masuk',
-            'metode' => 'non tunai',
-            'status' => '0'
+            'id_up' => $id,
+            'tgl_up' => $tanggal,
+            'uraian_up' => $uraian,
+            'nominal_up' => $pagu,
+            'status_up' => '0'
         ];
-        $simpan = DB::table('transaksi')->insert($data);
+        $simpan = DB::table('up')->insert($data);
         if ($simpan) {
             return Redirect('/up/view')->with(['success' => 'Data Berhasil Disimpan']);
         } else {
@@ -67,10 +64,10 @@ class UpController extends Controller
         }
     }
 
-    public function edit($id_transaksi)
+    public function edit($id_up)
     {
-        $up = DB::table('transaksi')
-        ->where('id_transaksi', $id_transaksi)
+        $up = DB::table('up')
+        ->where('id_up', $id_up)
         ->first();
         return view('admin.up.edit', compact('up'));
 
@@ -78,7 +75,7 @@ class UpController extends Controller
 
     public function update(Request $request)
     {
-        $id_transaksi = $request->id_transaksi;
+        $id_up = $request->id_up;
         $tgl = $request->tgl;
         $nominal = $request->nominal;
 
@@ -89,7 +86,7 @@ class UpController extends Controller
                     'nominal'   => $pagu
                 ];
 
-        $update=DB::table('transaksi')->where('id_transaksi', $id_transaksi)->update($data);
+        $update=DB::table('up')->where('id_up', $id_up)->update($data);
         if ($update){
             return redirect('/up/view')->with(['success' => 'Data Berhasil Diubah !']);
         }else{
@@ -98,9 +95,9 @@ class UpController extends Controller
 
         }
 
-        public function hapus($id_transaksi){
+        public function hapus($id_up){
 
-            $delete = DB::table('transaksi')->where('id_transaksi', $id_transaksi)->delete();
+            $delete = DB::table('up')->where('id_up', $id_up)->delete();
             if ($delete) {
                 return redirect('/up/view')->with(['success' => 'Data Berhasil Dihapus !']);
             } else {
@@ -108,20 +105,20 @@ class UpController extends Controller
             }
         }
 
-        public function lock($id_transaksi){
+        public function lock($id_up){
 
-            $transaksi = DB::table('transaksi')
-            ->where('id_transaksi', $id_transaksi)
+            $up = DB::table('up')
+            ->where('id_up', $id_up)
             ->first();
 
-            $tgl_bku = $transaksi->tgl;
+            $tgl_bku = $up->tgl;
 
             $data = [
                 'status' => '1',
                 'tgl_bku' => $tgl_bku
             ];
 
-            $update=DB::table('transaksi')->where('id_transaksi', $id_transaksi)->update($data);
+            $update=DB::table('up')->where('id_up', $id_up)->update($data);
             if ($update){
                 return redirect('/up/view')->with(['success' => 'Data Berhasil Diverifikasi !']);
             }else{
