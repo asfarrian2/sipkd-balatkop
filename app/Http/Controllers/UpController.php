@@ -54,6 +54,7 @@ class UpController extends Controller
             'tgl_up' => $tanggal,
             'uraian_up' => $uraian,
             'nominal_up' => $pagu,
+            'metode_up' => 'tnt',
             'status_up' => '0'
         ];
         $simpan = DB::table('up')->insert($data);

@@ -40,20 +40,20 @@
 <div class="col-md-12 col-sm-12 ">
     <div class="x_panel">
         <div class="x_title">
-            <h2>UANG PELIMPAHAN</h2>
+            <h2>TARIK TUNAI</h2>
             <div class="clearfix"></div>
         </div>
         <div class="col-md-4">
           <div id="" class="pull-left" style="background: #fff;    padding: 5px 10px; border: 1px solid #ccc">
             <i class="fa fa-home"></i>
             <span><a href="/dashboard" style="color: #0a803f">Home</a> /
-                <i class="fa fa-credit-card"></i> Uang Pelimpahan</span> <b class="caret"></b>
+                <i class="fa fa-credit-card"></i> Tarik Tunai</span> <b class="caret"></b>
           </div>
         </div>
         <br>
         <br>
         <div class="col-md-4">
-            <a href="/up/create" class="btn btn-primary btn-sm" id="btntambahkoderekening">
+            <a href="/tunai/create" class="btn btn-primary btn-sm" id="btntambahkoderekening">
               <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus"
                   width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
                   stroke="currentColor" fill="none" stroke-linecap="round"
@@ -88,26 +88,26 @@
                         @php
                             $total = 0;
                         @endphp
-                            @forelse ($up as $d)
+                            @forelse ($tunai as $d)
                             <tr>
                             <td class="text-center">{{ $loop->iteration }}</td>
-                            <td>{{ $d->id_up }}</td>
-                            <td>{{ date('d-m-Y', strtotime($d->tgl_up)) }}</td>
-                            <td>{{ $d->uraian_up }}</td>
-                            <td>Rp <?php echo number_format($d->nominal_up ,2,',','.')?> </td>
+                            <td>{{ $d->id_tunai }}</td>
+                            <td>{{ date('d-m-Y', strtotime($d->tgl_tunai)) }}</td>
+                            <td>{{ $d->uraian_tunai }}</td>
+                            <td>Rp <?php echo number_format($d->nominal_tunai ,2,',','.')?> </td>
                         @csrf
                             <td>
-                            @if ($d->status_up == 0)
-                            {{-- <a href="/up/verifikasi/{{ $d->id_up }}" title="Verifikasi Data"><i class="fa fa-unlock text-succsess btn btn-info btn-sm" ></i></a> --}}
-                            <a href="/up/edit/{{ $d->id_up }}" title="Edit Data"><i class="fa fa-pencil text-succsess btn btn-warning btn-sm" ></i></a>
-                            <a class="hapus" href="#" data-id="{{ $d->id_up }}" title="Hapus Data"><i class="hapus fa fa-trash text-succsess btn btn-danger btn-sm" ></i></a>
+                            @if ($d->status_tunai == 0)
+                            {{-- <a href="/tunai/verifikasi/{{ $d->id_tunai }}" title="Verifikasi Data"><i class="fa fa-unlock text-succsess btn btn-info btn-sm" ></i></a> --}}
+                            <a href="/tunai/edit/{{ $d->id_tunai }}" title="Edit Data"><i class="fa fa-pencil text-succsess btn btn-warning btn-sm" ></i></a>
+                            <a class="hapus" href="#" data-id="{{ $d->id_tunai }}" title="Hapus Data"><i class="hapus fa fa-trash text-succsess btn btn-danger btn-sm" ></i></a>
                             @else
                             <a href="#" title="Terverifikasi"><i class="fa fa-lock text-succsess btn btn-success btn-sm" ></i></a>
                             @endif
                             </td>
                             </tr>
                             @php
-                            $total += $d->nominal_up;
+                            $total += $d->nominal_tunai;
                             @endphp
                             @empty
                                 {{-- jika data tidak ada, tampilkan pesan data tidak tersedia --}}
@@ -122,7 +122,7 @@
                       </tbody>
                       <tfoot>
                         <tr>
-                            @if(count($up) > 0)
+                            @if(count($tunai) > 0)
                             <th colspan="4" style="text-align: center;">Jumlah</th>
                             <th colspan="2">{{'Rp' . number_format($total, 2, ',', '.')}}</th>
                             @else
@@ -148,7 +148,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     $('.hapus').click(function(){
-        var id_up = $(this).attr('data-id');
+        var id_tunai = $(this).attr('data-id');
     Swal.fire({
       title: "Apakah Anda Yakin Data Ini Ingin Di Hapus ?",
       text: "Jika Ya Maka Data Akan Terhapus Permanen",
@@ -159,7 +159,7 @@
       confirmButtonText: "Ya, Hapus Saja!"
     }).then((result) => {
       if (result.isConfirmed) {
-        window.location = "/up/"+id_up+"/hapus"
+        window.location = "/tunai/"+id_tunai+"/hapus"
         Swal.fire({
           title: "Data Berhasil Dihapus !",
           icon: "success"

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 24, 2025 at 10:23 AM
+-- Generation Time: Jan 24, 2025 at 06:32 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,32 @@ SET time_zone = "+00:00";
 --
 -- Database: `sipkd_balatkop`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bku`
+--
+
+CREATE TABLE `bku` (
+  `id_bku` varchar(15) NOT NULL,
+  `tgl_bku` date NOT NULL,
+  `uraian_bku` text NOT NULL,
+  `penerimaan_t` double NOT NULL,
+  `penerimaan_tnt` double NOT NULL,
+  `pengeluaran_t` double NOT NULL,
+  `pengeluaran_tnt` double NOT NULL,
+  `kd_jenis` varchar(15) NOT NULL,
+  `status_bku` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `bku`
+--
+
+INSERT INTO `bku` (`id_bku`, `tgl_bku`, `uraian_bku`, `penerimaan_t`, `penerimaan_tnt`, `pengeluaran_t`, `pengeluaran_tnt`, `kd_jenis`, `status_bku`) VALUES
+('BKU-0001', '2025-01-24', 'Uang Pelimpahan I bulan Januari 2025', 0, 450000000, 0, 0, 'UP-01', 1),
+('BKU-0003', '2025-01-24', 'Tarik Tunai I bulan Januari 2025', 35000000, 0, 0, 35000000, 'TN-01', 0);
 
 -- --------------------------------------------------------
 
@@ -318,7 +344,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('FMfks3tRJ1POV0dOvlxFoDj2ULs0sZA7YbNlt75g', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoibENSMjJ0UmVTRngyNU5ScmIxVFV2bHY1dFhoeVdYS0VLdDhyYW1ZMSI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjI5OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvdXAvdmlldyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1737691625);
+('RNpC1pa5SsZzxD0Ti0hretxfOKQwWN9gRxS9lnnt', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiUTRnWmNFT2UyRFM0ZG1jTVR3VUxOc1NxdDRyWEg3R0tYY2x5cVJ2YiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9ia3UvdmlldyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1737739906);
 
 -- --------------------------------------------------------
 
@@ -377,12 +403,35 @@ INSERT INTO `transaksi` (`id_transaksi`, `tgl`, `jenis`, `tipe`, `metode`, `urai
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tunai`
+--
+
+CREATE TABLE `tunai` (
+  `id_tunai` varchar(5) NOT NULL,
+  `tgl_tunai` date NOT NULL,
+  `metode_tunai` varchar(15) NOT NULL,
+  `uraian_tunai` text NOT NULL,
+  `nominal_tunai` double NOT NULL,
+  `status_tunai` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tunai`
+--
+
+INSERT INTO `tunai` (`id_tunai`, `tgl_tunai`, `metode_tunai`, `uraian_tunai`, `nominal_tunai`, `status_tunai`) VALUES
+('TN-01', '2025-01-24', 'tnt', 'Tarik Tunai I bulan Januari 2025', 35000000, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `up`
 --
 
 CREATE TABLE `up` (
   `id_up` varchar(5) NOT NULL,
   `tgl_up` date NOT NULL,
+  `metode_up` varchar(15) NOT NULL,
   `uraian_up` text NOT NULL,
   `nominal_up` double NOT NULL,
   `status_up` int(11) NOT NULL
@@ -392,8 +441,9 @@ CREATE TABLE `up` (
 -- Dumping data for table `up`
 --
 
-INSERT INTO `up` (`id_up`, `tgl_up`, `uraian_up`, `nominal_up`, `status_up`) VALUES
-('UP-01', '2025-01-30', 'Uang Pelimpahan I bulan Januari 2025', 350000000, 0);
+INSERT INTO `up` (`id_up`, `tgl_up`, `metode_up`, `uraian_up`, `nominal_up`, `status_up`) VALUES
+('UP-01', '2025-01-24', 'tnt', 'Uang Pelimpahan I bulan Januari 2025', 450000000, 1),
+('UP-02', '2025-01-30', 'tnt', 'Uang Pelimpahan I bulan Januari 2025', 250000000, 0);
 
 -- --------------------------------------------------------
 
@@ -430,6 +480,12 @@ INSERT INTO `users` (`id`, `name`, `nip`, `tempat_lahir`, `tgl_lahir`, `pangkat_
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `bku`
+--
+ALTER TABLE `bku`
+  ADD PRIMARY KEY (`id_bku`);
 
 --
 -- Indexes for table `cache`
@@ -530,6 +586,12 @@ ALTER TABLE `sub_kegiatan`
 --
 ALTER TABLE `transaksi`
   ADD PRIMARY KEY (`id_transaksi`);
+
+--
+-- Indexes for table `tunai`
+--
+ALTER TABLE `tunai`
+  ADD PRIMARY KEY (`id_tunai`);
 
 --
 -- Indexes for table `up`

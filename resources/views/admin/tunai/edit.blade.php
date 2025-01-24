@@ -24,41 +24,41 @@
 <div class="col-md-12 col-sm-12 ">
     <div class="x_panel">
         <div class="x_title">
-            <h2>EDIT SPESIFIKASI</h2>
+            <h2>EDIT TARIK TUNAI</h2>
             <div class="clearfix"></div>
         </div>
         <div class="col-md-4">
           <div id="" class="pull-left" style="background: #fff;    padding: 5px 10px; border: 1px solid #ccc">
             <i class="fa fa-home"></i>
             <span><a href="/dashboard" style="color: #0a803f">Home</a> /
-            <i class="fa fa-credit-card"></i> <a href="/up/view" style="color: #0a803f">UP</a> /
+            <i class="fa fa-credit-card"></i> <a href="/tunai/view" style="color: #0a803f">Tarik Tunai</a> /
             <i class="fa fa-pencil"></i> Edit Data</span> <b class="caret"></b>
           </div>
         </div>
 		<div class="x_content">
 		    <br>
-			<form action="/up/update" method="POST" data-parsley-validate class="form-horizontal form-label-left">
+			<form action="/tunai/update" method="POST" data-parsley-validate class="form-horizontal form-label-left">
                 @csrf
-                <input type="text" hidden name="id_up" value="{{ $up->id_up }}" id=""  class="form-control ">
+                <input type="text" hidden name="id_tunai" value="{{ $tunai->id_tunai }}" id=""  class="form-control ">
                 <div class="item form-group">
 					<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Tanggal
 					</label>
 					<div class="col-md-2 col-sm-2">
-						<input type="date" name="tgl_up" value="{{ $up->tgl_up }}" id=""  class="form-control ">
+						<input type="date" name="tgl_tunai" value="{{ $tunai->tgl_tunai }}" id=""  class="form-control ">
 					</div>
 				</div>
                 <div class="item form-group">
 					<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Uraian
 					</label>
 					<div class="col-md-6 col-sm-6 ">
-						<input type="text" name="uraian_up" value="{{ $up->uraian_up }}" id=""  class="form-control ">
+						<input type="text" name="uraian_tunai" value="{{ $tunai->uraian_tunai }}" id=""  class="form-control ">
 					</div>
 				</div>
                 <div class="item form-group">
 					<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Jumlah (Rp)
 					</label>
 					<div class="col-md-6 col-sm-6 ">
-						<input type="text" name="nominal_up" value="{{ $up->nominal_up }}" id="pagu2"  class="form-control ">
+						<input type="text" name="nominal_tunai" value="{{ $tunai->nominal_tunai }}" id="pagu2"  class="form-control ">
 					</div>
 				</div>
 				<div class="ln_solid"></div>

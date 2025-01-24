@@ -74,17 +74,23 @@
                     <li><a href="/sub_kegiatan/view">Sub Kegiatan</a></li>
                   </ul>
                 </li>
-                <br> <h3>Monitoring</h3> <br>
-                <li><a href="index.html"><i class="fa fa-line-chart"></i> BKU</a></li>
+                <br> <h3>TRANSAKSI</h3> <br>
+                <li><a><i class="fa fa-credit-card"></i> PENERIMAAN <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                     <li><a href="/up/view">Uang Pelimpahan (UP)</a></li>
+                     <li><a href="/tunai/view">Tarik Tunai</a></li>
+                  </ul>
+                </li>
+                <li><a href="/bku/view"><i class="fa fa-line-chart"></i> BKU</a></li>
                 <br> <h3>TRANSAKSI</h3> <br>
                 <li><a><i class="fa fa-credit-card"></i> KEUANGAN <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
                   <li><a href="tables_dynamic.html">SPP SPM LS</a></li>
-                    <li><a href="/up/view">Uang Pelimpahan (UP)</a></li>
                     <li><a href="tables_dynamic.html">Belanja</a></li>
                     <li><a href="tables.html">Pajak</a></li>
                   </ul>
                 </li>
+                <li><a href="index.html"><i class="fa fa-exchange"></i> BKU</a></li>
                 <br> <h3>OUTPUT</h3> <br>
                 <li><a><i class="fa fa-book"></i> LAPORAN<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">

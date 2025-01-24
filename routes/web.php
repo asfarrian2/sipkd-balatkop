@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BkuController;
 use App\Http\Controllers\KoderekeningController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\KegiatanController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\UpController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PejabatpelaksanaController;
 use App\Http\Controllers\PenyediaController;
+use App\Http\Controllers\TunaiController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -79,7 +81,8 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('/sub_kegiatan/editsubdet/{kode_sub_kegiatan}', [SubkegiatanController::class, 'editdetail']);
     Route::post('/sub_kegiatan/updatesubdet', [SubkegiatanController::class, 'updatedetail']);
     Route::get('/sub_kegiatan/{kode_sub_kegiatan}/hapussubdet', [SubkegiatanController::class, 'hapussubdet']);
-        //Rekening Detail
+
+    //Rekening Detail
         Route::get('/rekeningdetail/{id_subdet}', [RekeningdetailController::class, 'view']);
         Route::post('/rekeningdetail/store', [RekeningdetailController::class, 'store']);
         Route::get('/rekeningdetail/edit/{id_rekdet}', [RekeningdetailController::class, 'edit']);
@@ -94,6 +97,28 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('/up/edit/{id_up}', [UpController::class, 'edit']);
     Route::get('/up/{id_up}/hapus', [UpController::class, 'hapus']);
     Route::get('/up/verifikasi/{id_up}', [UpController::class, 'lock']);
+
+    //Tarik Tunai
+    Route::get('/tunai/view', [TunaiController::class, 'view']);
+    Route::get('/tunai/create', [TunaiController::class, 'create']);
+    Route::post('/tunai/store', [TunaiController::class, 'store']);
+    Route::post('/tunai/update', [TunaiController::class, 'update']);
+    Route::get('/tunai/edit/{id_tunai}', [TunaiController::class, 'edit']);
+    Route::get('/tunai/{id_tunai}/hapus', [TunaiController::class, 'hapus']);
+
+    //Bku Master
+    Route::get('/bku/view', [BkuController::class, 'view']);
+    Route::get('/bku/kunci/{id_bku}', [BkuController::class, 'lock']);
+    Route::get('/bku/{id_bku}/hapus', [BkuController::class, 'hapus']);
+    //Bku Uang Pelimpahan
+    Route::get('/bku/penerimaan', [BkuController::class, 'penerimaan']);
+    Route::get('/bku/store_penerimaan/{id_up}', [BkuController::class, 'store_penerimaan']);
+    //Bku Tunai
+    Route::get('/bku/view', [BkuController::class, 'view']);
+    Route::get('/bku/tunai', [BkuController::class, 'tunai']);
+    Route::get('/bku/store_tunai/{id_tunai}', [BkuController::class, 'store_tunai']);
+
+
 
 });
 
