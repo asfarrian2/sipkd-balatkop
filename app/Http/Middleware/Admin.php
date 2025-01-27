@@ -21,8 +21,8 @@ class Admin
             return $next($request);
         }
 
-        abbort(404);
-        
+        abort(404);
+
 
     }
 }

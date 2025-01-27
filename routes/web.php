@@ -11,6 +11,7 @@ use App\Http\Controllers\UpController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PejabatpelaksanaController;
 use App\Http\Controllers\PenyediaController;
+use App\Http\Controllers\SpjController;
 use App\Http\Controllers\TunaiController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Auth;
@@ -105,6 +106,16 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::post('/tunai/update', [TunaiController::class, 'update']);
     Route::get('/tunai/edit/{id_tunai}', [TunaiController::class, 'edit']);
     Route::get('/tunai/{id_tunai}/hapus', [TunaiController::class, 'hapus']);
+
+    //SPJ
+    Route::get('/spj/view', [SpjController::class, 'view']);
+    Route::get('/spj/create', [SpjController::class, 'create']);
+    Route::post('/spj/store', [SpjController::class, 'store']);
+    Route::post('/spj/update', [SpjController::class, 'update']);
+    Route::post('/spj/edit', [SpjController::class, 'edit']);
+    Route::get('/spj/{id_spj}/hapus', [SpjController::class, 'hapus']);
+    Route::get('/spj/verifikasi/{id_spj}', [SpjController::class, 'lock']);
+    Route::get('/filtersub/{kode_sub_kegiatan}', [SpjController::class, 'getobjek']);
 
     //Bku Master
     Route::get('/bku/view', [BkuController::class, 'view']);
