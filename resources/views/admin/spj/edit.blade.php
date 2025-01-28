@@ -1,4 +1,4 @@
-<form action="/spj/store" method="POST" id="frmCabang" enctype="multipart/form-data">
+<form action="/spj/{{Crypt::encrypt($spj->id_spj)}}/update" method="POST" id="frmCabang" enctype="multipart/form-data">
                             @csrf
                     <div class="row">
                         <div class="col-12">
@@ -20,7 +20,7 @@
                         <div class="col-12">
                             <div class="input-icon mb-3 col-md-12 col-sm-6">
                                 <span>Penerima</span>
-                                <select name="id_penerima" id="id_penerima" class="form-control">
+                                <select name="id_penyedia" id="id_penyedia" class="form-control">
                                  <option value="">Pilih Penerima</option>
                                      @foreach ($penyedia as $d)
                                          <option {{ $spj->id_penyedia == $d->id_penyedia ? 'selected' : '' }}

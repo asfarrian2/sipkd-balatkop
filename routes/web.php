@@ -111,8 +111,10 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('/spj/view', [SpjController::class, 'view']);
     Route::get('/spj/create', [SpjController::class, 'create']);
     Route::post('/spj/store', [SpjController::class, 'store']);
-    Route::post('/spj/update', [SpjController::class, 'update']);
+    Route::post('/spj/{id_spj}/update', [SpjController::class, 'update']);
     Route::post('/spj/edit', [SpjController::class, 'edit']);
+    Route::post('/spj/rincian', [SpjController::class, 'rincian']);
+    Route::get('/spj/get', [SpjController::class, 'getData']);
     Route::get('/spj/{id_spj}/hapus', [SpjController::class, 'hapus']);
     Route::get('/spj/verifikasi/{id_spj}', [SpjController::class, 'lock']);
     Route::get('/filtersub/{kode_sub_kegiatan}', [SpjController::class, 'getobjek']);

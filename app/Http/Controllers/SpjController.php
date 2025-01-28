@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Redis;
@@ -10,6 +11,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use Psy\Command\WhereamiCommand;
+
+use function Laravel\Prompts\select;
 
 class SpjController extends Controller
 {
@@ -56,6 +59,13 @@ class SpjController extends Controller
             ->select('spj.*', 'penyedia.nama')
             ->where('id_subdet', $request->detail_subkegiatan)
             ->get();
+
+            $det_spj= DB::table('det_spj')
+            ->leftJoin('rekening_det', 'det_spj.id_rekdet', '=', 'rekening_det.id_rekdet')
+            ->select('det_spj.*', 'rekening_det.uraian_rekdet')
+            ->orderBy('id_spj')
+            ->get();
+
         } else {
             $spj = [];
         }
@@ -66,7 +76,7 @@ class SpjController extends Controller
 
         //select Kode Rekening Detail
 
-        return view('admin.spj.view', compact('sub_kegiatan', 'detail_subkegiatan', 'spj', 'modal', 'penyedia', 'anggaran', 'realisasi'));
+        return view('admin.spj.view', compact('sub_kegiatan', 'detail_subkegiatan', 'spj', 'modal', 'penyedia', 'anggaran', 'realisasi', 'det_spj'));
     }
 
     public function getobjek($kode_sub_kegiatan){
@@ -157,6 +167,76 @@ class SpjController extends Controller
         return view('admin.spj.edit', compact('id_spj', 'spj', 'penyedia'));
     }
 
+    public function update($id_spj, Request $request)
+    {
+        $id_spj = Crypt::decrypt($id_spj);
+        $tgl_spj = $request->tgl_spj;
+        $uraian_spj = $request->uraian_spj;
+        $id_penyedia = $request->id_penyedia;
+
+        $data = [
+            'tgl_spj' => $tgl_spj,
+            'uraian_spj' => $uraian_spj,
+            'id_penyedia' => $id_penyedia
+        ];
+
+        $update = DB::table('spj')->where('id_spj', $id_spj)->update($data);
+        if ($update) {
+            return Redirect::back()->with(['success' => 'Data Berhasil Di Update']);
+        } else {
+            return Redirect::back()->with(['warning' => 'Data Gagal Di Update']);
+        }
+    }
+
+    public function rincian(Request $request){
+        $id_spj = $request->id_spj;
+
+        $spj    = DB::table('spj')
+        ->where('id_spj', $id_spj)
+        ->first();
+
+        $id_subdet = $spj->id_subdet;
+
+        $detail = DB::table('rekening_det')
+        ->join('det_spj', 'rekening_det.id_rekdet', '=', 'det_spj.id_rekdet')
+        ->where('id_subdet', $id_subdet)
+        ->get();
+
+        return view('admin.spj.rincian', compact('id_spj', 'spj', 'detail'));
+    }
+
+    public function getData(Request $request)
+{
+    $id = $request->input('id');
+    $tabel = DB::table('rekening_det')
+    ->join('det_spj', 'rekening_det.id_rekdet', '=', 'det_spj.id_rekdet')
+    ->where('id_subdet', $id)
+    ->first();
+
+    $id_rekdet = $tabel->id_rekdet;
+    $pagu = $tabel->pagu_rekdet;
+    $koefesien = $tabel->koefesien_rekdet;
+
+    $realisasi_anggaran = DB::table('det_spj')
+    ->where('id_rekdet', $id_rekdet)
+    ->sum('nominal_det');
+    $realisasi_koefesien = DB::table('det_spj')
+    ->where('id_rekdet', $id_rekdet)
+    ->sum('koefesien_det');
+
+    $sisa_anggaran = $pagu - $realisasi_anggaran;
+    $sisa_koefesien = $koefesien - $realisasi_koefesien;
+
+
+
+    $data = [
+        'data' => $tabel,
+        'sisa_anggaran' => $sisa_anggaran,
+        'sisa_k' => $sisa_koefesien
+    ];
+
+    return response()->json($data);
+}
 
 
 }

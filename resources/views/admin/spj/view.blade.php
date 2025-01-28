@@ -113,7 +113,7 @@
                             <th class="text-center">Nomor</th>
                             <th class="text-center">Tanggal</th>
                             <th class="text-center">Uraian</th>
-                            <th class="text-center">Nominal</th>
+                            <th class="text-center">Jumlah</th>
                             <th class="text-center">Penerima</th>
                             <th class="text-center">Aksi</th>
                             </tr>
@@ -124,14 +124,27 @@
                             <td class="text-center">{{ $loop->iteration }}</td>
                             <td>{{ $d->no_spj }}</td>
                             <td>{{ date('d-m-Y', strtotime($d->tgl_spj)) }}</td>
-                            <td>{{ $d->uraian_spj }}</td>
+                            <td>{{ $d->uraian_spj }}
+                                <ul>
+                                @foreach($det_spj as $s)
+                                @if($d->id_spj == $s->id_spj)
+                                <li>
+                                {{ $s->uraian_rekdet}} <br><b>Rp <?php echo number_format($s->nominal_det ,2,',','.')?></b>
+                                <a class="edit" href="#" title="Edit Data" id_spj="{{$d->id_spj}}"><i class="fa fa-pencil text-succsess btn btn-warning btn-sm" ></i></a>
+                                <a class="hapus" href="#" data-id="{{ $d->id_spj }}" title="Hapus Data"><i class="hapus fa fa-trash text-succsess btn btn-danger btn-sm" ></i></a>
+                                </li>
+                                @endif
+                                 @endforeach
+                                </ul>
+                            </td>
                             <td>Rp <?php echo number_format($d->nominal_spj ,2,',','.')?> </td>
                             <td>{{ $d->nama }}</td>
                         @csrf
                             <td>
                             @if ($d->status_spj == 0)
                             {{-- <a href="/up/verifikasi/{{ $d->id_spj }}" title="Verifikasi Data"><i class="fa fa-unlock text-succsess btn btn-info btn-sm" ></i></a> --}}
-                            <a class="Detail" href="#" title="Rincian" id_spj="{{$d->id_spj}}"><i class="fa fa-bars text-succsess btn btn-primary btn-sm" ></i></a>
+                            <a class="rincian" href="#" title="Buat Rincian" id_spj="{{$d->id_spj}}"><i class="fa fa-plus text-succsess btn btn-primary btn-sm" ></i></a>
+                            <a class="pajak" href="#" title="Tambah Pajak" id_spj="{{$d->id_spj}}"><i class="fa fa-money text-succsess btn btn-info btn-sm" ></i></a>
                             <a class="edit" href="#" title="Edit Data" id_spj="{{$d->id_spj}}"><i class="fa fa-pencil text-succsess btn btn-warning btn-sm" ></i></a>
                             <a class="hapus" href="#" data-id="{{ $d->id_spj }}" title="Hapus Data"><i class="hapus fa fa-trash text-succsess btn btn-danger btn-sm" ></i></a>
                             @else
@@ -244,6 +257,7 @@
     </div>
 </div>
 
+<!-- begin modal updte SPJ -->
 <div class="modal modal-blur fade" id="modal-editobjek" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -257,14 +271,38 @@
         </div>
     </div>
 </div>
-</div>
+<!-- end modal updte SPJ -->
 
+<!-- begin modal Rincian SPJ -->
+<div class="modal modal-blur fade" id="modal-rincian" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah Rincian</h5>
+                <button type="button" class="fa fa-close close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="loadtambahrincian">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end modal Rincian SPJ -->
+
+
+</div>
+</div>
+</div>
+</div>
 </div>
 
 @endsection
 @push('myscript')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/gentella/vendors/uang/jquery.mask.min.js"></script>
+
+
 <script>
     $('.hapus').click(function(){
         var id_spj = $(this).attr('data-id');
@@ -304,7 +342,7 @@
                 success: function (data){
                     //console.log(data);
                      if (data) {
-                        $("#detail_subkegiatan").empty('<option value=""> Pilih Kode Rekening </option>');
+                        $("#detail_subkegiatan").empty();
                         $('#detail_subkegiatan').append('<option value=""> Pilih Kode Rekening </option>');
                         $.each(data, function(key, detail_subkegiatan){
                             $('select[name="detail_subkegiatan"]').append(
@@ -335,8 +373,8 @@
        var span = document.getElementsByClassName("close")[0];
     </script>
 
+<!-- Button Edit SPJ -->
 <script>
-
 $('.edit').click(function(){
     var id_spj = $(this).attr('id_spj');
     $.ajax({
@@ -354,14 +392,65 @@ $('.edit').click(function(){
      $("#modal-editobjek").modal("show");
 
 });
-
-
-
-// $(".edit").click(function() {
-//    $("#modal-editobjek").modal("show");
-// });
-
-
 var span = document.getElementsByClassName("close")[0];
+</script>
+<!-- END Button Edit SPJ -->
+
+<!-- Button Edit Rinvian -->
+<script>
+$('.rincian').click(function(){
+    var id_spj = $(this).attr('id_spj');
+    $.ajax({
+                    type: 'POST',
+                    url: '/spj/rincian',
+                    cache: false,
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        id_spj: id_spj
+                    },
+                    success: function(respond) {
+                        $("#loadtambahrincian").html(respond);
+                        // Format input rupiah
+                $("#nominalduit").mask("#,##0", { reverse: true });
+                    }
+                });
+     $("#modal-rincian").modal("show");
+    });
+var span = document.getElementsByClassName("close")[0];
+</script>
+<!-- END Button Edit SPJ -->
+
+
+<script>
+    function autofill() {
+    var select = document.getElementById("select-option");
+    var inputText = document.getElementById("input-text");
+    var inputText2 = document.getElementById("input-text2");
+    var inputText3 = document.getElementById("input-text3");
+    var inputText4 = document.getElementById("input-text4");
+    var id = select.value;
+
+    $.ajax({
+        type: 'GET',
+        url: '/spj/get',
+        data: {id: id},
+        success: function(data) {
+            var nilai = data.data.pagu_rekdet.toString();
+            var nilai2 = data.sisa_anggaran.toString();
+            var formattedNilai = nilai.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            var formattedNilai2 = nilai2.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+            if (data && data.data.pagu_rekdet){
+            inputText.value = "Rp. " + formattedNilai;
+            inputText2.value = data.data.koefesien_rekdet + ' ' +data.data.satuan_rekdet;
+            inputText3.value = "Rp. " + formattedNilai2;
+            inputText4.value = data.sisa_k + ' ' +data.data.satuan_rekdet;
+            }else{
+                inputText.value = '';
+            }
+        }
+
+    });
+}
 </script>
 @endpush
