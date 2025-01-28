@@ -99,7 +99,7 @@
         <div class="x_title">
         @if(count($detail_subkegiatan) == 0)
         @else
-        <a href="#" class="btn btn-primary btn-md tambah"><i class="fa fa-plus"></i> Tambah</a>
+        <a href="#" class="btn btn-primary btn-md tambah"><i class="fa fa-plus"></i> Buat SPJ</a>
         @endif
             <div class="clearfix"></div>
         </div>
@@ -114,6 +114,7 @@
                             <th class="text-center">Tanggal</th>
                             <th class="text-center">Uraian</th>
                             <th class="text-center">Nominal</th>
+                            <th class="text-center">Penerima</th>
                             <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -125,10 +126,12 @@
                             <td>{{ date('d-m-Y', strtotime($d->tgl_spj)) }}</td>
                             <td>{{ $d->uraian_spj }}</td>
                             <td>Rp <?php echo number_format($d->nominal_spj ,2,',','.')?> </td>
+                            <td>{{ $d->nama }}</td>
                         @csrf
                             <td>
                             @if ($d->status_spj == 0)
                             {{-- <a href="/up/verifikasi/{{ $d->id_spj }}" title="Verifikasi Data"><i class="fa fa-unlock text-succsess btn btn-info btn-sm" ></i></a> --}}
+                            <a class="Detail" href="#" title="Rincian" id_spj="{{$d->id_spj}}"><i class="fa fa-bars text-succsess btn btn-primary btn-sm" ></i></a>
                             <a class="edit" href="#" title="Edit Data" id_spj="{{$d->id_spj}}"><i class="fa fa-pencil text-succsess btn btn-warning btn-sm" ></i></a>
                             <a class="hapus" href="#" data-id="{{ $d->id_spj }}" title="Hapus Data"><i class="hapus fa fa-trash text-succsess btn btn-danger btn-sm" ></i></a>
                             @else
@@ -139,7 +142,7 @@
                             @empty
                                 {{-- jika data tidak ada, tampilkan pesan data tidak tersedia --}}
                             <tr>
-                                <td colspan="6">
+                                <td colspan="7">
                                     <div class="d-flex justify-content-center align-items-center">
                                        <p> <i class="fa fa-exclamation"></i> Tidak ada data tersedia.</p>
                                     </div>
@@ -147,6 +150,32 @@
                             </tr>
                             @endforelse
                       </tbody>
+                      <trfood>
+                        <tr>
+                        @if(count($detail_subkegiatan) == 0)
+                        @else
+                            <th colspan="4" style="text-align: right;">Jumlah Anggaran</th>
+                            <th colspan="4">Rp <?php echo number_format($anggaran->pagu_subdet ,2,',','.')?></th>
+                        @endif
+                        </tr>
+                        <tr>
+                        @if(count($detail_subkegiatan) == 0)
+                        @else
+                            <th colspan="4" style="text-align: right;">Jumlah Realisasi s/d Ini</th>
+                            <th colspan="4">Rp <?php echo number_format($realisasi ,2,',','.')?></th>
+                        @endif
+                        </tr>
+                        @if(count($detail_subkegiatan) == 0)
+                        @else
+                        @php
+                        $sisa_anggaran = $anggaran->pagu_subdet - $realisasi
+                        @endphp
+                        <tr>
+                            <th colspan="4" style="text-align: right;">Sisa Anggaran</th>
+                            <th colspan="4">Rp <?php echo number_format($sisa_anggaran ,2,',','.')?></th>
+                        </tr>
+                        @endif
+                      </trfood>
                     </table>
                   </div>
                 </div>

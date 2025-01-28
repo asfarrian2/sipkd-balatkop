@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
+use Psy\Command\WhereamiCommand;
 
 class SpjController extends Controller
 {
@@ -36,9 +37,25 @@ class SpjController extends Controller
         ->where('kode_sub_kegiatan',  $request->sub_keg)
         ->first();
 
+        //rician
+        $anggaran = DB::table('detail_subkegiatan')
+        ->where('id_subdet', $request->detail_subkegiatan)
+        ->first();
+
+        $realisasi = DB::table('spj')
+        ->where('id_subdet', $request->detail_subkegiatan)
+        ->sum('nominal_spj');
+
+
+        //end rincian
+
 
         if ($detail_subkegiatan) {
-            $spj = DB::table('spj')->where('id_subdet', $request->detail_subkegiatan)->get();
+            $spj = DB::table('spj')
+            ->leftJoin('penyedia', 'spj.id_penyedia', '=', 'penyedia.id_penyedia')
+            ->select('spj.*', 'penyedia.nama')
+            ->where('id_subdet', $request->detail_subkegiatan)
+            ->get();
         } else {
             $spj = [];
         }
@@ -49,7 +66,7 @@ class SpjController extends Controller
 
         //select Kode Rekening Detail
 
-        return view('admin.spj.view', compact('sub_kegiatan', 'detail_subkegiatan', 'spj', 'modal', 'penyedia'));
+        return view('admin.spj.view', compact('sub_kegiatan', 'detail_subkegiatan', 'spj', 'modal', 'penyedia', 'anggaran', 'realisasi'));
     }
 
     public function getobjek($kode_sub_kegiatan){
@@ -129,7 +146,15 @@ class SpjController extends Controller
 
     public function edit(Request $request){
         $id_spj = $request->id_spj;
-        return view('admin.spj.edit', compact('id_spj'));
+        $spj    = DB::table('spj')
+        ->where('id_spj', $id_spj)
+        ->first();
+
+        $penyedia = DB::table('penyedia')
+        ->orderBy('id_penyedia')
+        ->get();
+
+        return view('admin.spj.edit', compact('id_spj', 'spj', 'penyedia'));
     }
 
 
