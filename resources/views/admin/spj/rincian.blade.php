@@ -5,11 +5,11 @@
                         <div class="col-12">
                             <div class="input-icon mb-3 col-md-12 col-sm-6">
                                 <span>Rincian</span>
-                                <select name="id_penyedia" id="select-option" onchange="autofill()" class="form-control" required>
+                                <select name="id_rekdet" id="select-option" onchange="autofill()" class="form-control" required>
                                  <option value="">Pilih Rincian</option>
                                      @foreach ($detail as $d)
                                          <option
-                                             value="{{ $d->id_subdet }}">{{ ($d->uraian_rekdet) }} Rp <?php echo number_format($d->pagu_rekdet ,2,',','.')?> </option>
+                                             value="{{ $d->id_rekdet }}">{{ ($d->uraian_rekdet) }} Rp <?php echo number_format($d->pagu_rekdet ,2,',','.')?> </option>
                                      @endforeach
                                  </select>
                             </div>
@@ -48,7 +48,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="input-icon mb-6 col-md-12 col-sm-6">
-                                <span>Nominal</span>
+                                <span>Nominal (Rp)</span>
                                 <input type="text" name="nominal_det" id="nominalduit"  class="form-control" required>
                             </div>
                         </div>
@@ -58,7 +58,7 @@
                         <div class="col-12">
                             <div class="input-icon mb-3 col-md-12 col-sm-6">
                                 <span>Koefesien</span>
-                                <input type="text" value="" name="nominal_det" id="tgl_spj" class="form-control" placeholder="" required>
+                                <input type="number" value="" name="koefesien_det" id="tgl_spj" class="form-control" placeholder="" required>
                             </div>
                         </div>
                     </div>

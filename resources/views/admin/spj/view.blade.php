@@ -440,7 +440,7 @@ var span = document.getElementsByClassName("close")[0];
             var formattedNilai = nilai.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
             var formattedNilai2 = nilai2.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
-            if (data && data.data.pagu_rekdet){
+            if (data && nilai){
             inputText.value = "Rp. " + formattedNilai;
             inputText2.value = data.data.koefesien_rekdet + ' ' +data.data.satuan_rekdet;
             inputText3.value = "Rp. " + formattedNilai2;

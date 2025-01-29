@@ -63,7 +63,7 @@ class SpjController extends Controller
             $det_spj= DB::table('det_spj')
             ->leftJoin('rekening_det', 'det_spj.id_rekdet', '=', 'rekening_det.id_rekdet')
             ->select('det_spj.*', 'rekening_det.uraian_rekdet')
-            ->orderBy('id_spj')
+            ->orderBy('id_det')
             ->get();
 
         } else {
@@ -198,7 +198,6 @@ class SpjController extends Controller
         $id_subdet = $spj->id_subdet;
 
         $detail = DB::table('rekening_det')
-        ->join('det_spj', 'rekening_det.id_rekdet', '=', 'det_spj.id_rekdet')
         ->where('id_subdet', $id_subdet)
         ->get();
 
@@ -206,37 +205,124 @@ class SpjController extends Controller
     }
 
     public function getData(Request $request)
-{
-    $id = $request->input('id');
-    $tabel = DB::table('rekening_det')
-    ->join('det_spj', 'rekening_det.id_rekdet', '=', 'det_spj.id_rekdet')
-    ->where('id_subdet', $id)
-    ->first();
+    {
+            $id = $request->input('id');
+            $tabel = DB::table('rekening_det')
+            ->where('id_rekdet', $id)
+            ->first();
 
-    $id_rekdet = $tabel->id_rekdet;
-    $pagu = $tabel->pagu_rekdet;
-    $koefesien = $tabel->koefesien_rekdet;
+            $id_rekdet = $tabel->id_rekdet;
+            $pagu = $tabel->pagu_rekdet;
+            $koefesien = $tabel->koefesien_rekdet;
 
-    $realisasi_anggaran = DB::table('det_spj')
-    ->where('id_rekdet', $id_rekdet)
-    ->sum('nominal_det');
-    $realisasi_koefesien = DB::table('det_spj')
-    ->where('id_rekdet', $id_rekdet)
-    ->sum('koefesien_det');
+            $realisasi_anggaran = DB::table('det_spj')
+            ->where('id_rekdet', $id_rekdet)
+            ->sum('nominal_det');
+            $realisasi_koefesien = DB::table('det_spj')
+            ->where('id_rekdet', $id_rekdet)
+            ->sum('koefesien_det');
 
-    $sisa_anggaran = $pagu - $realisasi_anggaran;
-    $sisa_koefesien = $koefesien - $realisasi_koefesien;
-
+            $sisa_anggaran = $pagu - $realisasi_anggaran;
+            $sisa_koefesien = $koefesien - $realisasi_koefesien;
 
 
-    $data = [
-        'data' => $tabel,
-        'sisa_anggaran' => $sisa_anggaran,
-        'sisa_k' => $sisa_koefesien
-    ];
 
-    return response()->json($data);
-}
+            $data = [
+                'data' => $tabel,
+                'sisa_anggaran' => $sisa_anggaran,
+                'sisa_k' => $sisa_koefesien
+            ];
+
+            return response()->json($data);
+    }
+
+    public function save(Request $request)
+    {
+
+        $id_det=DB::table('det_spj')
+        ->latest('id_spj', 'DESC')
+        ->first();
+
+        $kodeobjek ="DSP-";
+
+        if($id_det == null){
+            $nomorid  = "000001";
+
+        }else{
+            $nomorid = substr($id_det->id_det, 4, 6) + 1;
+            $nomorid = str_pad($nomorid, 6, "0", STR_PAD_LEFT);
+        }
+        $id=$kodeobjek.$nomorid;
+
+        $id_spj = $request->id_spj;
+        $id_rekdet = $request->id_rekdet;
+        $nominal_det = $request->nominal_det;
+        $koefesien_det = $request->koefesien_det;
+
+
+        $pagu = str_replace(',', '', $nominal_det);
+
+        $spj=DB::table('spj')
+        ->where('id_spj', $id_spj)
+        ->first();
+
+        $nominal = $spj->nominal_spj;
+        $tambah  = $nominal+$pagu;
+
+        //validasi pagu
+
+        $tabel = DB::table('rekening_det')
+        ->where('id_rekdet', $id_rekdet)
+        ->first();
+
+        $pagu2 = $tabel->pagu_rekdet;
+        $koefesien = $tabel->koefesien_rekdet;
+
+        $realisasi_anggaran = DB::table('det_spj')
+        ->where('id_rekdet', $id_rekdet)
+        ->sum('nominal_det');
+        $realisasi_koefesien = DB::table('det_spj')
+        ->where('id_rekdet', $id_rekdet)
+        ->sum('koefesien_det');
+
+        $sisa_anggaran = $pagu2 - $realisasi_anggaran;
+        $sisa_koefesien = $koefesien - $realisasi_koefesien;
+
+
+
+
+        //validasi kode
+        $cekkode = DB::table('det_spj')
+        ->where('id_spj', '=', $id_spj)
+        ->where('id_rekdet', '=', $id_rekdet)
+        ->count();
+         if ($cekkode > 0) {
+        return Redirect::back()->with(['warning' => 'Rincian Belanja Sudah Digunakan']);
+         }
+         if ($pagu > $sisa_anggaran) {
+            return Redirect::back()->with(['warning' => 'Belanja Sudah Melebihi Batas Pagu Anggaran']);
+             }
+         if ($koefesien_det > $sisa_koefesien) {
+            return Redirect::back()->with(['warning' => 'Belanja Sudah Melebihi Batas Koefesien']);
+             }
+         try{
+        $data = [
+            'id_det' => $id,
+            'id_spj' => $id_spj,
+            'id_rekdet' => $id_rekdet,
+            'nominal_det' => $pagu,
+            'koefesien_det' => $koefesien_det
+        ];
+        $data2 = [
+            'nominal_spj' => $tambah
+        ];
+        DB::table('det_spj')->insert($data);
+        DB::table('spj')->where('id_spj', $id_spj)->update($data2);
+        return Redirect::back()->with(['success' => 'Data Berhasil Disimpan']);
+        } catch (\Exception $e) {
+            return Redirect::back()->with(['warning' => 'Data Gagal Disimpan']);
+        }
+    }
 
 
 }
