@@ -115,6 +115,9 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::post('/spj/edit', [SpjController::class, 'edit']);
     Route::post('/spj/rincian', [SpjController::class, 'rincian']);
     Route::post('/spj/rincian/store', [SpjController::class, 'save']);
+    Route::post('/spj/edit/rincian', [SpjController::class, 'edit_rincian']);
+    Route::post('/spj/rincian/{id_spj}/update', [SpjController::class, 'update_rincian']);
+    Route::get('/spj/rincian/{id_det}/hapus', [SpjController::class, 'hapus_rincian']);
     Route::get('/spj/get', [SpjController::class, 'getData']);
     Route::get('/spj/{id_spj}/hapus', [SpjController::class, 'hapus']);
     Route::get('/spj/verifikasi/{id_spj}', [SpjController::class, 'lock']);

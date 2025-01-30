@@ -130,8 +130,9 @@
                                 @if($d->id_spj == $s->id_spj)
                                 <li>
                                 {{ $s->uraian_rekdet}} <br><b>Rp <?php echo number_format($s->nominal_det ,2,',','.')?></b>
-                                <a class="edit" href="#" title="Edit Data" id_spj="{{$d->id_spj}}"><i class="fa fa-pencil text-succsess btn btn-warning btn-sm" ></i></a>
-                                <a class="hapus" href="#" data-id="{{ $d->id_spj }}" title="Hapus Data"><i class="hapus fa fa-trash text-succsess btn btn-danger btn-sm" ></i></a>
+                                @csrf
+                                <a class="editr" href="#" title="Edit Data" id_det="{{$s->id_det}}"><i class="fa fa-pencil text-succsess btn btn-warning btn-sm" ></i></a>
+                                <a class="hapus2" href="#" data-id="{{ Crypt::encrypt($s->id_det) }}" title="Hapus Data"><i class="hapus fa fa-trash text-succsess btn btn-danger btn-sm" ></i></a>
                                 </li>
                                 @endif
                                  @endforeach
@@ -289,6 +290,22 @@
 </div>
 <!-- end modal Rincian SPJ -->
 
+<!-- begin modal Rincian SPJ -->
+<div class="modal modal-blur fade" id="modal-edit-rincian" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Rincian</h5>
+                <button type="button" class="fa fa-close close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="loadeditrincian">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end modal Rincian SPJ -->
+
 
 </div>
 </div>
@@ -317,6 +334,29 @@
     }).then((result) => {
       if (result.isConfirmed) {
         window.location = "/spj/"+id_spj+"/hapus"
+        Swal.fire({
+          title: "Data Berhasil Dihapus !",
+          icon: "success"
+        });
+      }
+    });
+    });
+    </script>
+
+<script>
+    $('.hapus2').click(function(){
+        var id_det = $(this).attr('data-id');
+    Swal.fire({
+      title: "Apakah Anda Yakin Data Ini Ingin Di Hapus ?",
+      text: "Jika Ya Maka Data Akan Terhapus Permanen",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya, Hapus Saja!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location = "/spj/rincian/"+id_det+"/hapus"
         Swal.fire({
           title: "Data Berhasil Dihapus !",
           icon: "success"
@@ -419,6 +459,29 @@ $('.rincian').click(function(){
 var span = document.getElementsByClassName("close")[0];
 </script>
 <!-- END Button Edit SPJ -->
+
+<script>
+$('.editr').click(function(){
+    var id_det = $(this).attr('id_det');
+    $.ajax({
+                    type: 'POST',
+                    url: '/spj/edit/rincian',
+                    cache: false,
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        id_det: id_det
+                    },
+                    success: function(respond) {
+                        $("#loadeditrincian").html(respond);
+                         // Format input rupiah
+                        $("#nominalbaru").mask("#,##0", { reverse: true });
+                    }
+                });
+     $("#modal-edit-rincian").modal("show");
+
+});
+var span = document.getElementsByClassName("close")[0];
+</script>
 
 
 <script>

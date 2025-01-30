@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 24, 2025 at 06:32 PM
+-- Generation Time: Jan 30, 2025 at 06:27 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -94,6 +94,20 @@ INSERT INTO `detail_subkegiatan` (`id_subdet`, `kode_sub_kegiatan`, `kode_rekeni
 ('SUB0004', '2.17.01.1.01.0006', '5.1.02.01.01.0029', 9080100),
 ('SUB0005', '2.17.01.1.01.0006', '5.1.02.01.01.0052', 2360000),
 ('SUB0006', '2.17.01.1.01.0006', '5.1.02.04.01.0001', 55610000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `det_spj`
+--
+
+CREATE TABLE `det_spj` (
+  `id_det` varchar(15) NOT NULL,
+  `nominal_det` double NOT NULL,
+  `koefesien_det` double NOT NULL,
+  `id_spj` varchar(15) NOT NULL,
+  `id_rekdet` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -263,7 +277,7 @@ INSERT INTO `pejabat_pelaksana` (`id_pejabat`, `nama_pejabat`, `nip_pejabat`, `p
 --
 
 CREATE TABLE `penyedia` (
-  `id_penyedia` int(4) NOT NULL,
+  `id_penyedia` varchar(10) NOT NULL,
   `nama` varchar(70) NOT NULL,
   `nip` varchar(24) DEFAULT NULL,
   `npwp` varchar(24) DEFAULT NULL,
@@ -276,8 +290,8 @@ CREATE TABLE `penyedia` (
 --
 
 INSERT INTO `penyedia` (`id_penyedia`, `nama`, `nip`, `npwp`, `no_rekening`, `keterangan`) VALUES
-(6, 'Lanang Budi Wibowo, MP', '19670712 199603 1 004', '1', '123', 'Kepala Balai'),
-(7, 'Dio', '0', NULL, NULL, NULL);
+('PN-0001', 'Lanang Budi Wibowo, MP', '19670712 199603 1 004', '1', '123', 'Kepala Balai'),
+('PN-0002', 'Dio', '0', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -322,7 +336,9 @@ CREATE TABLE `rekening_det` (
 INSERT INTO `rekening_det` (`id_rekdet`, `uraian_rekdet`, `pagu_rekdet`, `koefesien_rekdet`, `satuan_rekdet`, `id_subdet`) VALUES
 ('RD0001', 'Binder Clip 155', 32400, 2, 'Kotak', 'SUB0001'),
 ('RD0002', 'Gunting Kertas Sedang', 35900, 2, 'Buah', 'SUB0001'),
-('RD0003', 'Pelobang Kertas Kangoro', 189600, 2, 'Buah', 'SUB0001');
+('RD0003', 'Pelobang Kertas Kangoro', 189600, 2, 'Buah', 'SUB0001'),
+('RD0004', '(PEJABAT  ESELON IV/ GOL. III,II,I & NON PNS) Provinsi: Sulawesi Utara', 16000000, 4, 'Orang / Perjalanan', 'SUB0006'),
+('RD0005', 'Pelobang Kertas Kangoro', 189600, 2, 'Buah', 'SUB0006');
 
 -- --------------------------------------------------------
 
@@ -344,7 +360,36 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('RNpC1pa5SsZzxD0Ti0hretxfOKQwWN9gRxS9lnnt', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiUTRnWmNFT2UyRFM0ZG1jTVR3VUxOc1NxdDRyWEg3R0tYY2x5cVJ2YiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9ia3UvdmlldyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1737739906);
+('ywq2Jbhp72WepShcZic7IwBO7KrFZMnI6d5SzWMa', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiSldaTFo0RW45dkl5TWhqbWFtNzY3WmNpS3VrRGF3TTNEbHV0T3dhTiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTMxOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvc3BqL3ZpZXc/X3Rva2VuPUpXWkxaNEVuOXZJeU1oam1hbTc2N1pjaUt1a0Rhd00zRGx1dE93YU4mZGV0YWlsX3N1YmtlZ2lhdGFuPVNVQjAwMDYmc3ViX2tlZz0yLjE3LjAxLjEuMDEuMDAwNiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1738258000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `spj`
+--
+
+CREATE TABLE `spj` (
+  `id_spj` varchar(25) NOT NULL,
+  `no_spj` varchar(25) NOT NULL,
+  `tgl_spj` date NOT NULL,
+  `uraian_spj` text NOT NULL,
+  `nominal_spj` double NOT NULL,
+  `kode_program` varchar(15) NOT NULL,
+  `kode_kegiatan` varchar(30) NOT NULL,
+  `kode_sub_kegiatan` varchar(60) NOT NULL,
+  `id_subdet` varchar(35) NOT NULL,
+  `status_spj` int(11) NOT NULL,
+  `id_penyedia` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `spj`
+--
+
+INSERT INTO `spj` (`id_spj`, `no_spj`, `tgl_spj`, `uraian_spj`, `nominal_spj`, `kode_program`, `kode_kegiatan`, `kode_sub_kegiatan`, `id_subdet`, `status_spj`, `id_penyedia`) VALUES
+('KWT-00001', 'SPJ-00001', '2025-01-28', 'Biaya Perjalanan Dinas Banjarbaru-DKI Jakarta Tanggal 12 Januari s.d. 14 Januari 2025 Dalam Rangka Menghadiri Undangan Rakor Nasional', 10000, '2.17.01', '2.17.01.1.01', '2.17.01.1.01.0006', 'SUB0002', 0, 'PN-0001'),
+('KWT-00003', 'SPJ-00003', '2025-01-01', 'Biaya Perjalanan Dinas Banjarbaru-Sulut Tanggal 12 Januari s.d. 14 Januari 2028 Dalam Rangka Menghadiri Undangan Rapat E-Monev', 0, '2.17.01', '2.17.01.1.01', '2.17.01.1.01.0006', 'SUB0006', 0, 'PN-0002'),
+('KWT-00004', 'SPJ-00004', '2025-01-30', 'Belanja Kangoro', 0, '2.17.01', '2.17.01.1.01', '2.17.01.1.01.0006', 'SUB0006', 0, 'PN-0001');
 
 -- --------------------------------------------------------
 
@@ -506,6 +551,12 @@ ALTER TABLE `detail_subkegiatan`
   ADD PRIMARY KEY (`id_subdet`);
 
 --
+-- Indexes for table `det_spj`
+--
+ALTER TABLE `det_spj`
+  ADD PRIMARY KEY (`id_det`);
+
+--
 -- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -576,6 +627,12 @@ ALTER TABLE `sessions`
   ADD KEY `sessions_last_activity_index` (`last_activity`);
 
 --
+-- Indexes for table `spj`
+--
+ALTER TABLE `spj`
+  ADD PRIMARY KEY (`id_spj`);
+
+--
 -- Indexes for table `sub_kegiatan`
 --
 ALTER TABLE `sub_kegiatan`
@@ -633,12 +690,6 @@ ALTER TABLE `migrations`
 --
 ALTER TABLE `pejabat_pelaksana`
   MODIFY `id_pejabat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT for table `penyedia`
---
-ALTER TABLE `penyedia`
-  MODIFY `id_penyedia` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`

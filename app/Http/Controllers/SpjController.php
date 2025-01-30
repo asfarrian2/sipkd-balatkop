@@ -204,6 +204,82 @@ class SpjController extends Controller
         return view('admin.spj.rincian', compact('id_spj', 'spj', 'detail'));
     }
 
+    public function edit_rincian(Request $request){
+        $id_det = $request->id_det;
+
+        $det_spj    = DB::table('det_spj')
+        ->where('id_det', $id_det)
+        ->first();
+
+        return view('admin.spj.edit_rincian', compact('det_spj'));
+    }
+
+    public function update_rincian($id_det, Request $request){
+
+        $id_det = Crypt::decrypt($id_det);
+
+        $det_spj = DB::table('det_spj')
+        ->where('id_det', $id_det)
+        ->first();
+
+        $id_spj = $det_spj->id_spj;
+        $id_rekdet = $det_spj->id_rekdet;
+
+        $spj = DB::table('spj')
+        ->where('id_spj', $id_spj)
+        ->first();
+
+        $nominal_baru= $request->nominal_baru;
+        $nominal_det = $det_spj->nominal_det;
+        $nominal_spj = $spj->nominal_spj;
+        $pagu = str_replace(',', '', $nominal_baru);
+        $jumlah      = $nominal_spj-$nominal_det+$pagu;
+
+        $koefesien_baru= $request->koefesien_baru;
+        $koefesien_lama = $det_spj->koefesien_det;
+        //validasi pagu
+
+        $tabel = DB::table('rekening_det')
+        ->where('id_rekdet', $id_rekdet)
+        ->first();
+
+        $pagu_rekdet = $tabel->pagu_rekdet;
+        $koefesien_rekdet = $tabel->koefesien_rekdet;
+
+        $realisasi_anggaran = DB::table('det_spj')
+        ->where('id_rekdet', $id_rekdet)
+        ->sum('nominal_det');
+        $realisasi_koefesien = DB::table('det_spj')
+        ->where('id_rekdet', $id_rekdet)
+        ->sum('koefesien_det');
+
+        $ra = $pagu_rekdet-$realisasi_anggaran+$nominal_det;
+        $rk = $koefesien_rekdet-$realisasi_koefesien+$koefesien_lama;
+
+        $data = [
+            'nominal_spj' => $jumlah
+        ];
+
+        $data2 = [
+            'nominal_det' => $pagu,
+            'koefesien_det' => $koefesien_baru
+        ];
+        if ($pagu > $ra) {
+            return Redirect::back()->with(['warning' => 'Belanja Sudah Melebihi Batas Pagu Anggaran']);
+             }
+         if ($koefesien_baru > $rk) {
+            return Redirect::back()->with(['warning' => 'Belanja Sudah Melebihi Batas Koefesien']);
+             }
+         try{
+        DB::table('spj')->where('id_spj', $id_spj)->update($data);
+        DB::table('det_spj')->where('id_det', $id_det)->update($data2);
+        return Redirect::back()->with(['success' => 'Data Berhasil Disimpan']);
+        } catch (\Exception $e) {
+            return Redirect::back()->with(['warning' => 'Data Gagal Disimpan']);
+        }
+    }
+
+
     public function getData(Request $request)
     {
             $id = $request->input('id');
@@ -321,6 +397,36 @@ class SpjController extends Controller
         return Redirect::back()->with(['success' => 'Data Berhasil Disimpan']);
         } catch (\Exception $e) {
             return Redirect::back()->with(['warning' => 'Data Gagal Disimpan']);
+        }
+    }
+
+    public function hapus_rincian($id_det){
+
+        $id = Crypt::decrypt($id_det);
+
+        $det_spj= DB::table('det_spj')
+        ->where('id_det', $id)
+        ->first();
+
+        $id_spj     = $det_spj->id_spj;
+        $spj= DB::table('spj')
+        ->where('id_spj', $id_spj)
+        ->first();
+
+        $nominal_det = $det_spj->nominal_det;
+        $nominal_spj = $spj->nominal_spj;
+        $jumlah     = $nominal_spj - $nominal_det;
+
+        $data = [
+            'nominal_spj' => $jumlah
+        ];
+        DB::table('spj')->where('id_spj', $id_spj)->update($data);
+
+        $delete = DB::table('det_spj')->where('id_det', $id)->delete();
+        if ($delete) {
+            return Redirect::back()->with(['success' => 'Data Berhasil Dihapus !']);
+        } else {
+            return Redirect::back()->with(['warning' => 'Data Gagal Dihapus !']);
         }
     }
 
