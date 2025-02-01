@@ -131,25 +131,50 @@
                                 <li>
                                 {{ $s->uraian_rekdet}} <br><b>Rp <?php echo number_format($s->nominal_det ,2,',','.')?></b>
                                 @csrf
+                                @if ($d->status_spj == 0)
                                 <a class="editr" href="#" title="Edit Data" id_det="{{$s->id_det}}"><i class="fa fa-pencil text-succsess btn btn-warning btn-sm" ></i></a>
                                 <a class="hapus2" href="#" data-id="{{ Crypt::encrypt($s->id_det) }}" title="Hapus Data"><i class="hapus fa fa-trash text-succsess btn btn-danger btn-sm" ></i></a>
                                 </li>
                                 @endif
+                                @endif
                                  @endforeach
                                 </ul>
                             </td>
-                            <td>Rp <?php echo number_format($d->nominal_spj ,2,',','.')?> </td>
+                            <td><b>Rp <?php echo number_format($d->nominal_spj ,2,',','.')?></b>
+                            <ul>
+                                @foreach($pajak as $p)
+                                @if($d->id_spj == $p->id_spj)
+                                <li>
+                                PPN: Rp<?php echo number_format($p->ppn ,2,',','.')?><br>
+                                {{ $p->jenis_pajak}}:Rp<?php echo number_format($p->pph ,2,',','.')?>
+                                @php
+                                $diterima = 0;
+                                $diterima = $d->nominal_spj - ($p->ppn + $p->pph);
+                                @endphp
+                                <b>Diterima: Rp<?php echo number_format($diterima ,2,',','.')?></b>
+                                @csrf
+                                @if ($d->status_spj == 0)
+                                <a class="edit3" href="#" title="Edit Data" id_inpajak="{{$p->id_inpajak}}"><i class="fa fa-pencil text-succsess btn btn-warning btn-sm" ></i></a>
+                                <a class="hapus3" href="#" data-id="{{ Crypt::encrypt($p->id_inpajak) }}" title="Hapus Data"><i class="hapus fa fa-trash text-succsess btn btn-danger btn-sm" ></i></a>
+                                </li>
+                                @endif
+                                @endif
+                                 @endforeach
+                                </ul>
+                            </td>
                             <td>{{ $d->nama }}</td>
                         @csrf
                             <td>
                             @if ($d->status_spj == 0)
-                            {{-- <a href="/up/verifikasi/{{ $d->id_spj }}" title="Verifikasi Data"><i class="fa fa-unlock text-succsess btn btn-info btn-sm" ></i></a> --}}
                             <a class="rincian" href="#" title="Buat Rincian" id_spj="{{$d->id_spj}}"><i class="fa fa-plus text-succsess btn btn-primary btn-sm" ></i></a>
                             <a class="pajak" href="#" title="Tambah Pajak" id_spj="{{$d->id_spj}}"><i class="fa fa-money text-succsess btn btn-info btn-sm" ></i></a>
                             <a class="edit" href="#" title="Edit Data" id_spj="{{$d->id_spj}}"><i class="fa fa-pencil text-succsess btn btn-warning btn-sm" ></i></a>
-                            <a class="hapus" href="#" data-id="{{ $d->id_spj }}" title="Hapus Data"><i class="hapus fa fa-trash text-succsess btn btn-danger btn-sm" ></i></a>
+                            <a class="hapus" href="#" data-id="{{ Crypt::encrypt($d->id_spj) }}" title="Hapus Data"><i class="hapus fa fa-trash text-succsess btn btn-danger btn-sm" ></i></a>
+                            <a class="kirim" href="#" data-id="{{ Crypt::encrypt($d->id_spj) }}" title="Kirim Data"><i class="fa fa-send text-succsess btn btn-success btn-sm" ></i></a>
+                            @elseif ($d->status_spj == 1)
+                            <a class="batal" href="#"  data-id="{{ Crypt::encrypt($d->id_spj) }}" title="Batalkan"><i class="fa fa-ban text-succsess btn btn-danger btn-sm" ></i></a>
                             @else
-                            <a href="#" title="Terverifikasi"><i class="fa fa-lock text-succsess btn btn-success btn-sm" ></i></a>
+                            <a href="#" title="Terverifikasi"><i class="fa fa-lock text-succsess btn btn-dark btn-sm" ></i></a>
                             @endif
                             </td>
                             </tr>
@@ -290,7 +315,7 @@
 </div>
 <!-- end modal Rincian SPJ -->
 
-<!-- begin modal Rincian SPJ -->
+<!-- begin modal Edit Rincian SPJ -->
 <div class="modal modal-blur fade" id="modal-edit-rincian" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -304,7 +329,39 @@
         </div>
     </div>
 </div>
-<!-- end modal Rincian SPJ -->
+<!-- end modal Edit Rincian SPJ -->
+
+<!-- begin modal Tambah Pajak -->
+<div class="modal modal-blur fade" id="modal-pajak" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah Pajak</h5>
+                <button type="button" class="fa fa-close close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="loadtambahpajak">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end modal Pajak SPJ -->
+
+<!-- begin modal Tambah Pajak -->
+<div class="modal modal-blur fade" id="modal-edit-pajak" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Pajak</h5>
+                <button type="button" class="fa fa-close close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="loadeditpajak">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end modal Pajak SPJ -->
 
 
 </div>
@@ -341,6 +398,46 @@
       }
     });
     });
+    $('.batal').click(function(){
+        var id_spj = $(this).attr('data-id');
+    Swal.fire({
+      title: "Apakah Anda Yakin Data Ini Ingin Dibatalkan ?",
+      text: "Jika Ya Maka Data Akan Dikembalikan dan Bisa Dilakukan Pengeditan Ulang",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya, Batalkan!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location = "/spj/"+id_spj+"/batal"
+        Swal.fire({
+          title: "Data Berhasil DIbatalkan !",
+          icon: "success"
+        });
+      }
+    });
+    });
+    $('.kirim').click(function(){
+        var id_spj = $(this).attr('data-id');
+    Swal.fire({
+      title: "Apakah Anda Yakin Data Ini Ingin Dikirim ?",
+      text: "Jika Ya Maka Data Akan Dikirmkan untuk proses verifikasi oleh BPP",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya, Kirimkan!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location = "/spj/"+id_spj+"/kirim"
+        Swal.fire({
+          title: "Data Berhasil Dikirim !",
+          icon: "success"
+        });
+      }
+    });
+    });
     </script>
 
 <script>
@@ -365,6 +462,30 @@
     });
     });
     </script>
+
+<script>
+    $('.hapus3').click(function(){
+        var id_inpajak = $(this).attr('data-id');
+    Swal.fire({
+      title: "Apakah Anda Yakin Data Ini Ingin Di Hapus ?",
+      text: "Jika Ya Maka Data Akan Terhapus Permanen",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya, Hapus Saja!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location = "/spj/pajak/"+id_inpajak+"/hapus"
+        Swal.fire({
+          title: "Data Berhasil Dihapus !",
+          icon: "success"
+        });
+      }
+    });
+    });
+    </script>
+
 
 <script>
     $(document).ready(function(){
@@ -436,7 +557,7 @@ var span = document.getElementsByClassName("close")[0];
 </script>
 <!-- END Button Edit SPJ -->
 
-<!-- Button Edit Rinvian -->
+<!-- Button Tambah Rincian -->
 <script>
 $('.rincian').click(function(){
     var id_spj = $(this).attr('id_spj');
@@ -458,8 +579,9 @@ $('.rincian').click(function(){
     });
 var span = document.getElementsByClassName("close")[0];
 </script>
-<!-- END Button Edit SPJ -->
+<!-- END Button Tambah Rincian -->
 
+<!-- Button Edit Rincian -->
 <script>
 $('.editr').click(function(){
     var id_det = $(this).attr('id_det');
@@ -482,6 +604,59 @@ $('.editr').click(function(){
 });
 var span = document.getElementsByClassName("close")[0];
 </script>
+<!-- END Button Edit Rincian -->
+
+<!-- Button Tambah Pajak -->
+<script>
+$('.pajak').click(function(){
+    var id_spj = $(this).attr('id_spj');
+    $.ajax({
+                    type: 'POST',
+                    url: '/spj/pajak',
+                    cache: false,
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        id_spj: id_spj
+                    },
+                    success: function(respond) {
+                        $("#loadtambahpajak").html(respond);
+                        // Format input rupiah
+                $("#pajakppn").mask("#,##0", { reverse: true });
+                $("#pajakpph").mask("#,##0", { reverse: true });
+                    }
+                });
+     $("#modal-pajak").modal("show");
+    });
+var span = document.getElementsByClassName("close")[0];
+</script>
+<!-- END Button Tambah Pajak -->
+
+<!-- Button Edit Pajak -->
+<script>
+$('.edit3').click(function(){
+    var id_inpajak = $(this).attr('id_inpajak');
+    $.ajax({
+                    type: 'POST',
+                    url: '/spj/edit/pajak',
+                    cache: false,
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        id_inpajak: id_inpajak
+                    },
+                    success: function(respond) {
+                        $("#loadeditpajak").html(respond);
+                         // Format input rupiah
+                        $("#ppnbaru").mask("#,##0", { reverse: true });
+                        $("#pphbaru").mask("#,##0", { reverse: true });
+                    }
+                });
+     $("#modal-edit-pajak").modal("show");
+
+});
+var span = document.getElementsByClassName("close")[0];
+</script>
+
+
 
 
 <script>

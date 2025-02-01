@@ -73,9 +73,6 @@ class BkuController extends Controller
         }
     }
 
-
-
-
     //uang_pelimpahan
     public function penerimaan(){
 

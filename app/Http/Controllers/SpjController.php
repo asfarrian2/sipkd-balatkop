@@ -52,7 +52,6 @@ class SpjController extends Controller
 
         //end rincian
 
-
         if ($detail_subkegiatan) {
             $spj = DB::table('spj')
             ->leftJoin('penyedia', 'spj.id_penyedia', '=', 'penyedia.id_penyedia')
@@ -66,6 +65,12 @@ class SpjController extends Controller
             ->orderBy('id_det')
             ->get();
 
+            //pajak
+             $pajak = DB::table('inpajak')
+             ->leftJoin('pajak', 'inpajak.id_pajak', '=', 'pajak.id_pajak')
+             ->select('inpajak.*', 'pajak.jenis_pajak')
+             ->get();
+
         } else {
             $spj = [];
         }
@@ -76,7 +81,7 @@ class SpjController extends Controller
 
         //select Kode Rekening Detail
 
-        return view('admin.spj.view', compact('sub_kegiatan', 'detail_subkegiatan', 'spj', 'modal', 'penyedia', 'anggaran', 'realisasi', 'det_spj'));
+        return view('admin.spj.view', compact('sub_kegiatan', 'detail_subkegiatan', 'spj', 'modal', 'penyedia', 'anggaran', 'realisasi', 'det_spj', 'pajak'));
     }
 
     public function getobjek($kode_sub_kegiatan){
@@ -145,12 +150,24 @@ class SpjController extends Controller
     }
 
     public function hapus($id_spj){
+        $id = Crypt::decrypt($id_spj);
 
-        $delete = DB::table('spj')->where('id_spj', $id_spj)->delete();
-        if ($delete) {
-            return Redirect::back()->with(['success' => 'Data Berhasil Dihapus !']);
-        } else {
-            return Redirect::back()->with(['warning' => 'Data Gagal Dihapus !']);
+        $det_spj= DB::table('det_spj')
+        ->where('id_spj', $id)
+        ->count();
+
+        $pajak= DB::table('inpajak')
+        ->where('id_spj', $id)
+        ->count();
+
+        if ($det_spj or $pajak> 0) {
+            return Redirect::back()->with(['warning' => 'Belanja Tidak Bisa Dihapus Karena Masih Terdapat Rincian']);
+            }
+         try{
+        DB::table('spj')->where('id_spj', $id)->delete();
+        return Redirect::back()->with(['success' => 'Data Berhasil Dihapus']);
+        } catch (\Exception $e) {
+            return Redirect::back()->with(['warning' => 'Data Gagal Dihapus']);
         }
     }
 
@@ -429,6 +446,147 @@ class SpjController extends Controller
             return Redirect::back()->with(['warning' => 'Data Gagal Dihapus !']);
         }
     }
+
+    public function pajak(Request $request){
+
+        $id_spj = $request->id_spj;
+
+        $pajak = DB::table('pajak')
+        ->get();
+
+        return view('admin.spj.pajak', compact( 'pajak', 'id_spj'));
+    }
+
+    public function pajakin(Request $request)
+    {
+
+        $id_inpajak=DB::table('inpajak')
+        ->latest('id_inpajak', 'DESC')
+        ->first();
+
+        $kodeobjek ="PIN-";
+
+        if($id_inpajak == null){
+            $nomorid  = "000001";
+
+        }else{
+            $nomorid = substr($id_inpajak->id_inpajak, 4, 6) + 1;
+            $nomorid = str_pad($nomorid, 6, "0", STR_PAD_LEFT);
+        }
+        $id=$kodeobjek.$nomorid;
+
+        $pajakppn = $request->pajakppn;
+        $pajakpph = $request->pajakpph;
+        $id_pajak = $request->id_pajak;
+        $id_spj = $request->id_spj;
+
+        $ppn = str_replace(',', '', $pajakppn);
+        $pph = str_replace(',', '', $pajakpph);
+
+        //validasi kode
+        $cekkode = DB::table('inpajak')
+        ->where('id_spj', '=', $id_spj)
+        ->count();
+         if ($cekkode > 0) {
+        return Redirect::back()->with(['warning' => 'Pajak Sudah Digunakan']);
+         }
+         try{
+        $data = [
+            'id_inpajak' => $id,
+            'id_spj' => $id_spj,
+            'ppn' => $ppn,
+            'pph' => $pph,
+            'id_pajak' => $id_pajak
+        ];
+        DB::table('inpajak')->insert($data);
+        return Redirect::back()->with(['success' => 'Data Berhasil Disimpan']);
+        } catch (\Exception $e) {
+            return Redirect::back()->with(['warning' => 'Data Gagal Disimpan']);
+        }
+    }
+
+    public function edit_pajak(Request $request){
+        $id_inpajak = $request->id_inpajak;
+
+        $pajak    = DB::table('inpajak')
+        ->where('id_inpajak', $id_inpajak)
+        ->first();
+
+        $detail = DB::table('pajak')
+        ->get();
+
+        return view('admin.spj.edit_pajak', compact('detail', 'id_inpajak', 'pajak'));
+    }
+
+    public function hapus_pajak($id_inpajak){
+        $id = Crypt::decrypt($id_inpajak);
+        $delete = DB::table('inpajak')->where('id_inpajak', $id)->delete();
+        if ($delete) {
+            return Redirect::back()->with(['success' => 'Data Berhasil Dihapus !']);
+        } else {
+            return Redirect::back()->with(['warning' => 'Data Gagal Dihapus !']);
+        }
+    }
+
+    public function update_pajak($id_inpajak, Request $request){
+
+        $id_inpajak = Crypt::decrypt($id_inpajak);
+
+        $pajakppn = $request->pajakppn;
+        $pajakpph = $request->pajakpph;
+        $id_pajak = $request->id_pajak;
+        $ppn = str_replace(',', '', $pajakppn);
+        $pph = str_replace(',', '', $pajakpph);
+        $data = [
+            'id_pajak' => $id_pajak,
+            'ppn'      => $ppn,
+            'pph'      => $pph
+        ];
+        $update = DB::table('inpajak')->where('id_inpajak', $id_inpajak)->update($data);
+        if ($update) {
+            return Redirect::back()->with(['success' => 'Data Berhasil Diubah !']);
+        } else {
+            return Redirect::back()->with(['warning' => 'Data Gagal Diubah !']);
+        }
+    }
+
+    public function kirim($id_spj){
+        $id = Crypt::decrypt($id_spj);
+
+        $spj= DB::table('spj')
+        ->where('id_spj', $id)
+        ->first();
+        $nominal = $spj->nominal_spj;
+
+        if ($nominal < 1) {
+            return Redirect::back()->with(['warning' => 'Belanja Tidak Bisa Dikirim Karena Nominal Rp 0']);
+            }
+         try{
+
+        $data=[
+            'status_spj' => '1'
+        ];
+        DB::table('spj')->where('id_spj', $id)->update($data);
+        return Redirect::back()->with(['success' => 'Data Berhasil Dikirim']);
+        } catch (\Exception $e) {
+            return Redirect::back()->with(['warning' => 'Data Gagal Dikirim']);
+        }
+    }
+
+    public function batal($id_spj){
+        $id = Crypt::decrypt($id_spj);
+
+        $data=[
+            'status_spj' => '0'
+        ];
+        $update=DB::table('spj')->where('id_spj', $id)->update($data);
+        if ($update) {
+            return Redirect::back()->with(['success' => 'Data Berhasil Dibatalkan !']);
+        } else {
+            return Redirect::back()->with(['warning' => 'Data Gagal Dibatalkan !']);
+        }
+    }
+
 
 
 }

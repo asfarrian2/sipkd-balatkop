@@ -119,6 +119,13 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::post('/spj/rincian/{id_spj}/update', [SpjController::class, 'update_rincian']);
     Route::get('/spj/rincian/{id_det}/hapus', [SpjController::class, 'hapus_rincian']);
     Route::get('/spj/get', [SpjController::class, 'getData']);
+    Route::post('/spj/pajak', [SpjController::class, 'pajak']);
+    Route::post('/spj/pajak/store', [SpjController::class, 'pajakin']);
+    Route::post('/spj/edit/pajak', [SpjController::class, 'edit_pajak']);
+    Route::post('/spj/pajak/{id_inpajak}/update', [SpjController::class, 'update_pajak']);
+    Route::get('/spj/pajak/{id_inpajak}/hapus', [SpjController::class, 'hapus_pajak']);
+    Route::get('/spj/{id_spj}/kirim', [SpjController::class, 'kirim']);
+    Route::get('/spj/{id_spj}/batal', [SpjController::class, 'batal']);
     Route::get('/spj/{id_spj}/hapus', [SpjController::class, 'hapus']);
     Route::get('/spj/verifikasi/{id_spj}', [SpjController::class, 'lock']);
     Route::get('/filtersub/{kode_sub_kegiatan}', [SpjController::class, 'getobjek']);
